@@ -1,0 +1,16 @@
+---
+title: "index"
+author: "Anna Ivanova"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output:
+  bookdown::gitbook: default
+---
+
+# INTRODUCTION
+
+Here I will tell you what this manual is all abou
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

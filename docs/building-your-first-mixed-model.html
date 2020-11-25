@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Building your first mixed model | index</title>
+  <meta name="description" content="2 Building your first mixed model | index" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Building your first mixed model | index" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Building your first mixed model | index" />
+  
+  
+  
+
+<meta name="author" content="Anna Ivanova" />
+
+
+<meta name="date" content="2020-11-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
+<li class="chapter" data-level="2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html"><i class="fa fa-check"></i><b>2</b> Building your first mixed model</a><ul>
+<li class="chapter" data-level="2.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#load-data"><i class="fa fa-check"></i><b>2.1</b> Load data</a></li>
+<li class="chapter" data-level="2.2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#building-from-the-ground-up"><i class="fa fa-check"></i><b>2.2</b> Building from the ground up</a></li>
+<li class="chapter" data-level="2.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#a-model-with-1-fixed-effect"><i class="fa fa-check"></i><b>2.3</b> A model with 1 fixed effect</a></li>
+<li class="chapter" data-level="2.4" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#was-it-worth-it-model-comparison"><i class="fa fa-check"></i><b>2.4</b> Was it worth it? Model comparison</a></li>
+<li class="chapter" data-level="2.5" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#adding-the-first-random-effect-participant"><i class="fa fa-check"></i><b>2.5</b> Adding the first random effect: participant</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#now-add-random-intercepts-by-experiment"><i class="fa fa-check"></i><b>2.5.1</b> Now add random intercepts by experiment</a></li>
+<li class="chapter" data-level="2.5.2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#alternatively-add-random-intercepts-by-region"><i class="fa fa-check"></i><b>2.5.2</b> Alternatively add random intercepts by region</a></li>
+<li class="chapter" data-level="2.5.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#now-add-random-intercepts-by-both-experiment-and-region"><i class="fa fa-check"></i><b>2.5.3</b> Now add random intercepts by both experiment and region</a></li>
+<li class="chapter" data-level="2.5.4" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#does-a-random-intercept-by-region-improve-the-model-beyond-one-with-participant-experiment"><i class="fa fa-check"></i><b>2.5.4</b> Does a random intercept by region improve the model beyond one with participant &amp; experiment?</a></li>
+<li class="chapter" data-level="2.5.5" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#does-a-random-intercept-by-experiment-improve-the-model-beyond-one-with-participant-region"><i class="fa fa-check"></i><b>2.5.5</b> Does a random intercept by experiment improve the model beyond one with participant &amp; region?</a></li>
+<li class="chapter" data-level="2.5.6" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#now-add-random-slopes"><i class="fa fa-check"></i><b>2.5.6</b> Now add random slopes</a></li>
+<li class="chapter" data-level="2.5.7" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#do-random-slopes-help-beyond-random-intercepts"><i class="fa fa-check"></i><b>2.5.7</b> Do random slopes help beyond random intercepts?</a></li>
+<li class="chapter" data-level="2.5.8" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#we-also-have-hemisphere-as-a-variable-in-our-model"><i class="fa fa-check"></i><b>2.5.8</b> We also have hemisphere as a variable in our model</a></li>
+<li class="chapter" data-level="2.5.9" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#note-that-below-its-not-included-in-the-random-structure-although-it-could-should-be"><i class="fa fa-check"></i><b>2.5.9</b> Note that below it’s not included in the random structure, although it could / should be</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">index</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="building-your-first-mixed-model" class="section level1">
+<h1><span class="header-section-number">2</span> Building your first mixed model</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Loading R packages</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># BEGINNNER TIP: before loading the package for the first time, you need to install it </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># using the command install.packages(&quot;myPackageNameInQuotes&quot;)</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(bookdown)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(lme4)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(multcomp)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(lmerTest)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">library</span>(optimx)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co"># Checking the version of the &quot;lme4&quot; package</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">packageVersion</span>(<span class="st">&quot;lme4&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &#39;1.1.21&#39;</code></pre>
+<div id="load-data" class="section level2">
+<h2><span class="header-section-number">2.1</span> Load data</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># load data</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">data =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;data/Diachek2020.csv&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>);</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">str</span>(data))</a></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    31529 obs. of  9 variables:
+##  $ Experiment : Factor w/ 30 levels &quot;Experiment1&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ System     : Factor w/ 2 levels &quot;language&quot;,&quot;MD&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Region     : Factor w/ 30 levels &quot;LAntTemp&quot;,&quot;LH_antParietal&quot;,..: 8 8 8 8 8 8 8 8 8 8 ...
+##  $ SubjectID  : Factor w/ 679 levels &quot;007_KAN_parametric_07&quot;,..: 2 10 11 12 56 74 96 107 111 169 ...
+##  $ Condition  : Factor w/ 2 levels &quot;S&quot;,&quot;W&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Hemisphere : Factor w/ 2 levels &quot;L&quot;,&quot;R&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Effect_Size: num  0.602 -0.303 -0.369 0.361 -0.194 ...
+##  $ Modality   : Factor w/ 2 levels &quot;auditory&quot;,&quot;visual&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Task       : Factor w/ 2 levels &quot;passive&quot;,&quot;task&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+## NULL</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Explicitly specifying all categorical variables as factors. </span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># Generally, R will default to treating numbers as type &quot;numeric&quot; and strings as factor, but it helps to be explicit</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># COMMON MISTAKE: if participant IDs are numbers, they will be treating as numeric </span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># (i.e. participant 2 &gt; participant 1)</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">data<span class="op">$</span>Experiment =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Experiment);</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">data<span class="op">$</span>System =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>System);</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">data<span class="op">$</span>Region =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Region);</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">data<span class="op">$</span>SubjectID =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>SubjectID);</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">data<span class="op">$</span>Hemisphere =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Hemisphere);</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">data<span class="op">$</span>Modality =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Modality);</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">data<span class="op">$</span>Task =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Task);</a></code></pre></div>
+<p>You can also use the ‘factor’ command to specify the order of the different values (“levels”) thata given variable can take. If you don’t specify the order, the levels will be ordered alphabetically.</p>
+<p>Why does it matter? The first level will be treated as the reference level (baseline) by the lme model. See below and the “contrasts” section for more details.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">data<span class="op">$</span>Condition =<span class="st"> </span><span class="kw">factor</span>(data<span class="op">$</span>Condition, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;W&#39;</span>, <span class="st">&#39;S&#39;</span>));</a></code></pre></div>
+<p>Let’s inspect our data!</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">summary</span>(data)</a></code></pre></div>
+<pre><code>##         Experiment         System            Region     
+##  Experiment1 :11610   language:10569   LAntTemp : 1057  
+##  Experiment15: 2370   MD      :20960   LIFG     : 1057  
+##  Experiment23: 1979                    LIFGorb  : 1057  
+##  Experiment24: 1260                    LMFG     : 1057  
+##  Experiment19: 1020                    LPostTemp: 1057  
+##  Experiment20:  960                    RAntTemp : 1057  
+##  (Other)     :12330                    (Other)  :25187  
+##                   SubjectID     Condition Hemisphere  Effect_Size      
+##  117_KAN_EvDB_20150217c:  150   W: 6899   L:15765    Min.   :-7.48391  
+##  210_KAN_EvDB_20150223d:  150   S:24630   R:15764    1st Qu.:-0.09324  
+##  211_KAN_EvDB_20150217b:  150                        Median : 0.29143  
+##  214_KAN_evDB_20141103b:  150                        Mean   : 0.40459  
+##  253_KAN_EvDB_20150211a:  150                        3rd Qu.: 0.80658  
+##  254_KAN_EvDB_20150211c:  150                        Max.   : 6.85222  
+##  (Other)               :30629                                          
+##      Modality          Task      
+##  auditory: 3630   passive:20550  
+##  visual  :27899   task   :10979  
+##                                  
+##                                  
+##                                  
+##                                  
+## </code></pre>
+<p>To simplify things a bit, we will create a reduced dataset of MD only, and another with only experiments 19-24</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">data.md =<span class="st"> </span><span class="kw">subset</span>(data, (System<span class="op">==</span><span class="st">&quot;MD&quot;</span>));</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="cf">for</span> (ii <span class="cf">in</span> <span class="dv">19</span><span class="op">:</span><span class="dv">24</span>) {</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">  x =<span class="st"> </span><span class="kw">subset</span>(data.md, Experiment <span class="op">==</span><span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Experiment&quot;</span>, <span class="kw">as.character</span>(ii), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>));</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  <span class="cf">if</span> (ii<span class="op">==</span><span class="dv">19</span>){</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">    data.md.red =<span class="st"> </span>x;</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">    data.md.red =<span class="st"> </span><span class="kw">rbind</span>(data.md.red,x);</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="kw">summary</span>(data.md.red)</a></code></pre></div>
+<pre><code>##         Experiment        System                  Region    
+##  Experiment23:1320   language:   0   LH_antParietal  : 236  
+##  Experiment24: 840   MD      :4720   LH_insula       : 236  
+##  Experiment19: 680                   LH_medialFrontal: 236  
+##  Experiment20: 640                   LH_midFrontal   : 236  
+##  Experiment21: 640                   LH_midFrontalOrb: 236  
+##  Experiment22: 600                   LH_midParietal  : 236  
+##  (Other)     :   0                   (Other)         :3304  
+##                  SubjectID    Condition Hemisphere  Effect_Size       
+##  365_FED_20170510a_3T2:  80   W:2360    L:2360     Min.   :-2.845794  
+##  498_FED_20170510b_3T2:  80   S:2360    R:2360     1st Qu.:-0.000482  
+##  541_FED_20170523d_3T2:  80                        Median : 0.371629  
+##  007_KAN_parametric_07:  40                        Mean   : 0.418242  
+##  018_FED_20151202b_3T1:  40                        3rd Qu.: 0.790246  
+##  018_FED_20151203a_3T1:  40                        Max.   : 4.048679  
+##  (Other)              :4360                                           
+##      Modality         Task     
+##  auditory:   0   passive:1480  
+##  visual  :4720   task   :3240  
+##                                
+##                                
+##                                
+##                                
+## </code></pre>
+</div>
+<div id="building-from-the-ground-up" class="section level2">
+<h2><span class="header-section-number">2.2</span> Building from the ground up</h2>
+<p>Let’s start with the simplest linear model: only an intercept.
+This looks like:
+<span class="math display" id="eq:intercept">\[\begin{equation}
+\vec{y} = \begin{bmatrix} 1\\...\\1  \end{bmatrix} * \beta_0 + \epsilon
+\tag{2.1}
+\end{equation}\]</span></p>
+<p>wherу <span class="math inline">\(\vec{y}\)</span> is a vector with the measurements we want to model (in our example, Effect_Size), <span class="math inline">\(\beta_0\)</span> is the baseline response, and <span class="math inline">\(\epsilon\)</span> is residual error. The length of the ones vector is the same as the number of observations in <span class="math inline">\(\vec{y}\)</span>. Essentially, this model is predicting the same number for every single measurement.</p>
+<p>In R syntax, we can say that <span class="math inline">\(\vec{y}\)</span> is proportional to some value (and estimate the coefficients that make this proportion work out). In this case, we assume that each value in <span class="math inline">\(\vec{y}\)</span> is a constant and therefore proportional to 1:</p>
+<p><span class="math display" id="eq:intercept1">\[\begin{equation}
+y \propto 1
+\tag{2.2}
+\end{equation}\]</span></p>
+<p>Here’s what it looks like in the code:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># specify the model</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">m.lin.noCond =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> data.md.red)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co"># show the result</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw">summary</span>(m.lin.noCond)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ 1, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2640 -0.4187 -0.0466  0.3720  3.6304 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.41824    0.01044   40.08   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.717 on 4719 degrees of freedom</code></pre>
+</div>
+<div id="a-model-with-1-fixed-effect" class="section level2">
+<h2><span class="header-section-number">2.3</span> A model with 1 fixed effect</h2>
+<p>Let’s add a single fixed predictor. Now our effect size <span class="math inline">\(\vec{y}\)</span> depends not only on the baseline response, but also on the experimental condition. The general formula for such a design looks like this:</p>
+<p><span class="math display" id="eq:onebeta">\[\begin{equation}
+y = X * \vec{\beta} + \epsilon
+\tag{2.3}
+\end{equation}\]</span></p>
+<p>What’s X? X is the design matrix; it specifies our fixed effects for this model (fixed effects are like regular regression terms - in fact, if you’ve seen matrix-form regression equations before, this should all be familiar).</p>
+<p>The size of X will depend on the number of conditions. How many conditions do we have here?</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">str</span>(<span class="kw">unique</span>(data<span class="op">$</span>Condition))</a></code></pre></div>
+<pre><code>##  Factor w/ 2 levels &quot;W&quot;,&quot;S&quot;: 2 1</code></pre>
+<p>We have 2 conditions, words (W) and sentences (S). So our design matrix will look something like the following:</p>
+<p><span class="math display" id="eq:designmatrix1">\[\begin{equation}
+X = \begin{bmatrix} 
+    1 &amp; 0 \\
+    1 &amp; 0 \\
+    ...\\
+    1 &amp; 1 \end{bmatrix}
+\tag{2.4}
+\end{equation}\]</span></p>
+<p>where the first column is our intercept (“baseline” neural activity) and the second column has 1 whenever that row comes from the sentence condition and 0 otherwise.</p>
+<p>Where is the word condition?</p>
+<p>Remember that we said earlier that the first level of the factor variable gets treated as the baseline. So here, the response to words is our baseline, and the response to sentences is the stuff you would get “on top” of the word-induced activation - in other words, the magnitude of the S&gt;N contrast. The intercept, in turn, would give you the average magnitude of the W&gt;baseline contrast.</p>
+<p>This might sound a bit counterintuitive, but imagine if we tried to specify the intercept, word and sentence as 3 separate effects to estimate. Then we could still compare sentences to words, but would have trouble distinguishing the words from the intercept. If our observed response to words is 1.2, does the intercept contribute 0 and words 1.2? intercept 1.2 and words 0? intercept 0.6 and words 0.6? There is an infinite number of combinations.</p>
+<p>(Mathematically, we can state that the matrix <a href="building-your-first-mixed-model.html#eq:designmatrix1">(2.4)</a> would be rank-deficient if we added the predictor variable for S, since it’s a direct complement of W. Thus, there would be an infinite number of coefficients <span class="math inline">\(\beta\)</span> for solving equation <a href="building-your-first-mixed-model.html#eq:onebeta">(2.3)</a>)</p>
+<p>Bottom line: if you have n levels, you can estimate the maximum of n effects.</p>
+<p>Ok, with all those preliminaries behind us, let’s finally run the model!</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">m.lin =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span>Condition, <span class="dt">data =</span> data.md.red)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">summary</span>(m.lin)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ Condition, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2080 -0.4233 -0.0426  0.3806  3.5744 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.47423    0.01471  32.228  &lt; 2e-16 ***
+## ConditionS  -0.11198    0.02081  -5.381 7.77e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7148 on 4718 degrees of freedom
+## Multiple R-squared:  0.0061, Adjusted R-squared:  0.005889 
+## F-statistic: 28.95 on 1 and 4718 DF,  p-value: 7.77e-08</code></pre>
+<p>We do not need to explicitly specify an intercept: a model with +1 is the same as a model without it</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">m.lin.int =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition, <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">summary</span>(m.lin.int)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ 1 + Condition, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2080 -0.4233 -0.0426  0.3806  3.5744 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.47423    0.01471  32.228  &lt; 2e-16 ***
+## ConditionS  -0.11198    0.02081  -5.381 7.77e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7148 on 4718 degrees of freedom
+## Multiple R-squared:  0.0061, Adjusted R-squared:  0.005889 
+## F-statistic: 28.95 on 1 and 4718 DF,  p-value: 7.77e-08</code></pre>
+<p>We can explicitly supress the intercept. The resulting model is the same in terms of its predicted y values, but the coefficients and their interpretation are different.</p>
+<p>THINK: Which two contrasts does this no-intercept model evaluate? (Hint: you can compare these numbers with the numbers produced by the previous model)</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">m.lin.noInt =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition, <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">summary</span>(m.lin.noInt)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ 0 + Condition, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2080 -0.4233 -0.0426  0.3806  3.5744 
+## 
+## Coefficients:
+##            Estimate Std. Error t value Pr(&gt;|t|)    
+## ConditionW  0.47423    0.01471   32.23   &lt;2e-16 ***
+## ConditionS  0.36225    0.01471   24.62   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7148 on 4718 degrees of freedom
+## Multiple R-squared:  0.2585, Adjusted R-squared:  0.2582 
+## F-statistic: 822.4 on 2 and 4718 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="was-it-worth-it-model-comparison" class="section level2">
+<h2><span class="header-section-number">2.4</span> Was it worth it? Model comparison</h2>
+<p>Does the model with Condition as a fixed effect explain more variance than the intercept-only model? To find out, we can compare the two models using the anova function. This function implements the <a href="https://en.wikipedia.org/wiki/Likelihood-ratio_test">likelihood ratio test</a>.</p>
+<p>NOTE: the likelihood ratio (LR) test only works for nested models, i.e. models that have the same structure except that one model has some additional terms. The LR test would then tell us whether these terms are worth adding - in formal words, whether they significantly improve model fit. If you want to compare non-nested models, you can use other methods, such as <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion">AIC</a>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">anova</span>(m.lin.noCond, m.lin)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: Effect_Size ~ 1
+## Model 2: Effect_Size ~ Condition
+##   Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)    
+## 1   4719 2425.7                                 
+## 2   4718 2410.9  1    14.796 28.954 7.77e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="adding-the-first-random-effect-participant" class="section level2">
+<h2><span class="header-section-number">2.5</span> Adding the first random effect: participant</h2>
+<p>Now we’re ready to actually build a mixed effect model.</p>
+<p>Our previous model assumed that all our participants had the same response to the S and W conditions - any variation was put in the error term. However, we know that some participants tend to have generally high responses and vice versa; thus, we might expect someone with a really high response to words to also have a high response to sentences. Can we incorporate that knowledge into the model?</p>
+<p>We can! Let’s tell the model that the intercept varies across participants by adding an additional term to it:</p>
+<p><span class="math display" id="eq:mixedmodel1">\[\begin{equation}
+y = X * \vec{\beta} + \begin{bmatrix} 1\\...\\1  \end{bmatrix} * \vec{b} + \epsilon
+\tag{2.5}
+\end{equation}\]</span></p>
+<p>Here, <span class="math inline">\(\vec{b}\)</span> specifies a participant-specific offset in the response strength - some will be above average, and some below average. This offset is not condition-specific (yet).</p>
+<p>Why do we call it a random effect? Unlike Condition, each <span class="math inline">\(\vec{b}\)</span> value is participant-specific. Still, we could just add a bunch of columns to X for each participant and put 1’s against all trials completed by any particular participant. Then our participant-specific estimates would just be added to <span class="math inline">\(\vec{\beta}\)</span>.</p>
+<p>In some cases, modeling participant-specific variation as a fixed effect is a valid approach. However, in our case, we have many participants but not much participant-specific data, so we would just get a lot of noisy effects. Moreover, all the-participant specific terms have something in common - they are not fully independent. For example, if your participant intercepts are 1, 1.1, 0.9, 1.2, you have a pretty strong hunch that the next one is not going to be 15. Mathematically, we can state that participant-specific intercepts come from a normal distribution where the mean is the group intercept (estimated as the first term in <span class="math inline">\(\vec{\beta}\)</span>), and the variance is a free parameter we need to estimate.</p>
+<p>Thus, our <span class="math inline">\(\vec{b}\)</span> term is never evaluated directly! It is a random variable of the form</p>
+<p><span class="math display">\[\begin{equation}
+\vec{b} \sim \mathcal{N}(0,\sigma^{2})
+\end{equation}\]</span></p>
+<p>(the mean is 0 because this term is only estimating the participant-specific <em>offset</em> from the overall intercept)</p>
+<p>With this ‘random effect’ trick, we achieve two goals:
+- we estimate the intercept effects across all participants by specifying just one parameter - ^{2}
+- we leverage the power of all the dataset, not just the participant-specific data. Thus if any one participant’s values are unusually high, it would not have a strong result on the model - the normal distribution will “regularize” the estimates for that participant.</p>
+<p>LET’S RUN OUR FIRST MIXED EFFECT MODEL!</p>
+<p>The previous models did not have any random terms, and so we evaluated it using the ‘lm’ function. For mixed models, we use ‘lmer’.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># I want to evaluate the model by maximum likelihood, not restricted maximum likelihood (REML),</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="co"># so I&#39;m setting REML to FALSE</span></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">m.ri1 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID), <span class="dt">data =</span> data.md.red,</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">             <span class="dt">REML=</span><span class="ot">FALSE</span>);</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="kw">summary</span>(m.ri1)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by maximum likelihood . t-tests use
+##   Satterthwaite&#39;s method [lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+##    Data: data.md.red
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##   7735.1   7761.0  -3863.6   7727.1     4716 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.4796 -0.5633 -0.0710  0.4803  5.7666 
+## 
+## Random effects:
+##  Groups    Name        Variance Std.Dev.
+##  SubjectID (Intercept) 0.2365   0.4864  
+##  Residual              0.2758   0.5252  
+## Number of obs: 4720, groups:  SubjectID, 115
+## 
+## Fixed effects:
+##             Estimate Std. Error        df t value Pr(&gt;|t|)    
+## ConditionW   0.47069    0.04663 121.41170  10.094  &lt; 2e-16 ***
+## ConditionS   0.35872    0.04663 121.41170   7.693 4.24e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnW
+## ConditionS 0.946</code></pre>
+<p>Note that the fixed effects structure is the same as before, but now we also have the “random effects” section, which tells us how much variance was explained by the intercept varying across participants and how much is left in the residuals.</p>
+<p>The fixed effect estimates themselves have changed - adding the random effect changes the way the model is fitted to the data.</p>
+<p>Does this random effect add to explained variance compared to the fixed-effect-only model?</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">m.noR =<span class="st"> </span>m.lin.noInt;</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">anova</span>(m.ri1, m.noR)</a></code></pre></div>
+<pre><code>## Data: data.md.red
+## Models:
+## m.noR: Effect_Size ~ 0 + Condition
+## m.ri1: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+##       Df     AIC   BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.noR  3 10229.9 10249 -5111.9  10223.9                             
+## m.ri1  4  7735.1  7761 -3863.6   7727.1 2496.7      1  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div id="now-add-random-intercepts-by-experiment" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Now add random intercepts by experiment</h3>
+<p>Baseline model reminder:
+ConditionS 0.36225
+ConditionW 0.47423</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">m.ri2 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">summary</span>(m.ri2)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 7709.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.4973 -0.5635 -0.0702  0.4803  5.7706 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev.
+##  SubjectID  (Intercept) 0.19666  0.4435  
+##  Experiment (Intercept) 0.03391  0.1841  
+##  Residual               0.27495  0.5244  
+## Number of obs: 4720, groups:  SubjectID, 115; Experiment, 6
+## 
+## Fixed effects:
+##            Estimate Std. Error     df t value Pr(&gt;|t|)   
+## ConditionW   0.4566     0.0868 6.0453    5.26  0.00186 **
+## ConditionS   0.3446     0.0868 6.0453    3.97  0.00726 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnW
+## ConditionS 0.985</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">anova</span>(m.ri1, m.ri2)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri1: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+## m.ri2: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri1  4 7735.1 7761.0 -3863.6   7727.1                             
+## m.ri2  5 7709.9 7742.2 -3850.0   7699.9 27.236      1  1.801e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="alternatively-add-random-intercepts-by-region" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Alternatively add random intercepts by region</h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">m.ri3 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">summary</span>(m.ri3)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6956.2
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.2660 -0.5955 -0.0606  0.5189  5.9541 
+## 
+## Random effects:
+##  Groups    Name        Variance Std.Dev.
+##  SubjectID (Intercept) 0.23985  0.4897  
+##  Region    (Intercept) 0.04808  0.2193  
+##  Residual              0.22905  0.4786  
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20
+## 
+## Fixed effects:
+##            Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionW  0.47069    0.06773 59.02195   6.950 3.29e-09 ***
+## ConditionS  0.35871    0.06773 59.02195   5.296 1.83e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnW
+## ConditionS 0.979</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">anova</span>(m.ri1, m.ri3)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri1: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+## m.ri3: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri1  4 7735.1 7761.0 -3863.6   7727.1                             
+## m.ri3  5 6955.9 6988.2 -3473.0   6945.9 781.24      1  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="now-add-random-intercepts-by-both-experiment-and-region" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> Now add random intercepts by both experiment and region</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">m.ri4 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">summary</span>(m.ri4)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) +  
+##     (1 | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6924.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.2849 -0.5986 -0.0618  0.5179  5.9728 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev.
+##  SubjectID  (Intercept) 0.19805  0.4450  
+##  Region     (Intercept) 0.04806  0.2192  
+##  Experiment (Intercept) 0.03336  0.1827  
+##  Residual               0.22811  0.4776  
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20; Experiment, 6
+## 
+## Fixed effects:
+##            Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionW  0.45689    0.09918 10.24873   4.607  0.00091 ***
+## ConditionS  0.34492    0.09918 10.24873   3.478  0.00573 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnW
+## ConditionS 0.990</code></pre>
+</div>
+<div id="does-a-random-intercept-by-region-improve-the-model-beyond-one-with-participant-experiment" class="section level3">
+<h3><span class="header-section-number">2.5.4</span> Does a random intercept by region improve the model beyond one with participant &amp; experiment?</h3>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">anova</span>(m.ri2, m.ri4)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri2: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment)
+## m.ri4: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + 
+## m.ri4:     (1 | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri2  5 7709.9 7742.2 -3850.0   7699.9                             
+## m.ri4  6 6927.0 6965.8 -3457.5   6915.0 784.88      1  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="does-a-random-intercept-by-experiment-improve-the-model-beyond-one-with-participant-region" class="section level3">
+<h3><span class="header-section-number">2.5.5</span> Does a random intercept by experiment improve the model beyond one with participant &amp; region?</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">anova</span>(m.ri3, m.ri4)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri3: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Region)
+## m.ri4: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + 
+## m.ri4:     (1 | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri3  5 6955.9 6988.2 -3473.0   6945.9                             
+## m.ri4  6 6927.0 6965.8 -3457.5   6915.0 30.874      1  2.754e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="now-add-random-slopes" class="section level3">
+<h3><span class="header-section-number">2.5.6</span> Now add random slopes</h3>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">m.ris =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">summary</span>(m.ris)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 +  
+##     Condition | Experiment) + (1 + Condition | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6527
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.6493 -0.5807 -0.0683  0.5089  5.9141 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev. Corr 
+##  SubjectID  (Intercept) 0.229264 0.47882       
+##             ConditionS  0.101223 0.31816  -0.36
+##  Region     (Intercept) 0.034497 0.18573       
+##             ConditionS  0.006672 0.08168  0.79 
+##  Experiment (Intercept) 0.023741 0.15408       
+##             ConditionS  0.005286 0.07270  0.47 
+##  Residual               0.199429 0.44657       
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20; Experiment, 6
+## 
+## Fixed effects:
+##            Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionW  0.45783    0.08837  8.54662   5.181 0.000683 ***
+## ConditionS  0.33841    0.10926 11.06806   3.097 0.010086 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnW
+## ConditionS 0.904</code></pre>
+</div>
+<div id="do-random-slopes-help-beyond-random-intercepts" class="section level3">
+<h3><span class="header-section-number">2.5.7</span> Do random slopes help beyond random intercepts?</h3>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">anova</span>(m.ris, m.ri4)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri4: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + 
+## m.ri4:     (1 | Region)
+## m.ris: Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + 
+## m.ris:     Condition | Experiment) + (1 + Condition | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri4  6 6927.0 6965.8 -3457.5   6915.0                             
+## m.ris 12 6543.5 6621.0 -3259.8   6519.5 395.53      6  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="we-also-have-hemisphere-as-a-variable-in-our-model" class="section level3">
+<h3><span class="header-section-number">2.5.8</span> We also have hemisphere as a variable in our model</h3>
+</div>
+<div id="note-that-below-its-not-included-in-the-random-structure-although-it-could-should-be" class="section level3">
+<h3><span class="header-section-number">2.5.9</span> Note that below it’s not included in the random structure, although it could / should be</h3>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">m.ris2 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">*</span>Hemisphere <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a></code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
+## control$checkConv, : Model failed to converge with max|grad| = 0.00385056
+## (tol = 0.002, component 1)</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">summary</span>(m.ris2)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## Effect_Size ~ 0 + Condition * Hemisphere + (1 + Condition | SubjectID) +  
+##     (1 + Condition | Experiment) + (1 + Condition | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6530.9
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.6823 -0.5788 -0.0650  0.5060  5.9356 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev. Corr 
+##  SubjectID  (Intercept) 0.229282 0.47883       
+##             ConditionS  0.101220 0.31815  -0.36
+##  Region     (Intercept) 0.034846 0.18667       
+##             ConditionS  0.005205 0.07214  0.80 
+##  Experiment (Intercept) 0.023759 0.15414       
+##             ConditionS  0.005295 0.07277  0.47 
+##  Residual               0.199429 0.44657       
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20; Experiment, 6
+## 
+## Fixed effects:
+##                        Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionW              0.49670    0.09827 12.08824   5.055 0.000276 ***
+## ConditionS              0.42000    0.12217 15.32320   3.438 0.003566 ** 
+## HemisphereR            -0.07774    0.08548 17.98669  -0.909 0.375177    
+## ConditionS:HemisphereR -0.08544    0.04144 17.98440  -2.062 0.053956 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             CndtnW CndtnS HmsphR
+## ConditionS   0.913              
+## HemisphereR -0.435 -0.437       
+## CndtnS:HmsR -0.223 -0.349  0.513
+## convergence code: 0
+## Model failed to converge with max|grad| = 0.00385056 (tol = 0.002, component 1)</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
