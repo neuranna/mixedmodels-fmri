@@ -127,9 +127,9 @@ X = \begin{bmatrix}
 (\#eq:designmatrix1)
 \end{equation}
 
-where the first column is our intercept ("baseline" neural activity) and the second column has 1  whenever that row comes from the sentence condition and 0 otherwise. 
+where the first column is our intercept ("baseline" neural activity) and the second column has 1  whenever that row comes from the Sentence condition and 0 otherwise. 
 
-Where is the word condition?
+Where is the Word condition?
 
 Remember that we said earlier that the first level of the factor variable gets treated as the baseline. So here, the response to words is our baseline, and the response to sentences is the  stuff you would get "on top" of the word-induced activation  - in other words, the magnitude of  the S>N contrast. The intercept, in turn, would give you the average magnitude of the W>baseline contrast.
 
@@ -172,7 +172,7 @@ anova(m.lin.noCond, m.lin)
 ```
 
 
-## Adding the first random effect: participant
+## Random effect #1: participant
 
 Now we're ready to actually build a mixed effect model. 
 
@@ -189,7 +189,7 @@ Here, $\vec{b}$ specifies a participant-specific offset in the response strength
 
 Why do we call it a random effect? Unlike Condition, each $\vec{b}$ value is participant-specific. Still, we could just add a bunch of columns to X for each participant and put 1's against all trials completed by any particular participant. Then our participant-specific estimates would just be added to $\vec{\beta}$. 
 
-In some cases, modeling participant-specific variation as a fixed effect is a valid approach. However, in our case, we have many participants but not much participant-specific data, so we would just get a lot of noisy effects. Moreover, all the-participant specific terms have something in common - they are not fully independent. For example, if your participant intercepts are 1, 1.1, 0.9, 1.2, you have a pretty strong hunch that the next one is not going to be 15. Mathematically, we can state that participant-specific intercepts come from a normal distribution where the mean is the group intercept (estimated as the first term in $\vec{\beta}$), and the variance is a free parameter we need to estimate. 
+In some cases, modeling participant-specific variation as a fixed effect might be a valid approach - for instance, if you have 3 participants and a ton of data for each. However, in our case, we have many participants but not much participant-specific data, so we would just get a lot of noisy effects. Moreover, all the-participant specific terms have something in common - they are not fully independent. For example, if your participant intercepts are 1, 1.1, 0.9, 1.2, you have a pretty strong hunch that the next one is not going to be 15. Mathematically, we can state that participant-specific intercepts come from a normal distribution where the mean is the group intercept (estimated as the first term in $\vec{\beta}$), and the variance is a free parameter we need to estimate. 
 
 Thus, our $\vec{b}$ term is never evaluated directly! It is a random variable of the form 
 
@@ -199,10 +199,13 @@ Thus, our $\vec{b}$ term is never evaluated directly! It is a random variable of
 
 (the mean is 0 because this term is only estimating the participant-specific *offset* from the overall intercept)
 
-With this 'random effect' trick, we achieve two goals:
-- we estimate the intercept effects across all participants by specifying just one parameter - \sigma^{2}
-- we leverage the power of all the dataset, not just the participant-specific data. Thus if any one participant's values are unusually high, it would not have a strong result on the model - the normal distribution will "regularize" the estimates for that participant.
+With this 'random effect' trick, we achieve three goals:
 
+1. We estimate the intercept effects across all participants by specifying just one parameter - $\sigma^{2}$.
+
+2. We leverage the power of all the dataset, not just the participant-specific data. Thus if any one participant's values are unusually high, it would not have a strong result on the model - the normal distribution will "regularize" the estimates for that participant.
+
+3. We make *generalizable* inferences: instead of estimating the effects for each specific participant, we produce an estimate for the entire population.
 
 LET'S RUN OUR FIRST MIXED EFFECT MODEL!
 
@@ -226,58 +229,131 @@ m.noR = m.lin.noInt;
 anova(m.ri1, m.noR)
 ```
 
-### Now add random intercepts by experiment ### 
-Baseline model reminder: 
-ConditionS  0.36225 
-ConditionW  0.47423
-```{r}
-m.ri2 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment), data = data.md.red);
-summary(m.ri2)
+## Random intercept #2: experiment 
 
+Another way to think about random effects is that they specify additional clusters in the data. For instance, most datapoints from participant A will be shifted above the mean, while most datapoints from participant B will be below the mean. Points A and points B will form two different clusters. 
+
+The dataset we're using has another obvious source of clusters - it was collected across multiple experiments. Although we would hope that the data we record would be unaffected by the specific experimental conditions, in practice this is rarely the case. The data might be collected on different MRI scanners, during different seasons, the Sentence & Word blocks might have had different lengths, etc. If you have all this information and you think that each variable might affect your results, then you can go ahead and enter these terms directly. However, we here will just use Experiment.
+
+We assume that the mean responses to both conditions will vary across experiments (and, as before, across participants).
+
+To save space, from now on we will only print out fixed and random effect estimates.
+```{r}
+m.ri2 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment), data = data.md.red,
+             REML=FALSE);
+coef(summary(m.ri2))    # fixed
+VarCorr(m.ri2)          # random
+```
+
+Previous model (m.ri1) reminder:
+ConditionW  0.47423
+ConditionS  0.36225 
+
+We see again that changing the random effect structure affects the fixed effects too.
+
+Let's compare our models to see if adding the experiment intercept actually improved model fit.
+```{r}
 anova(m.ri1, m.ri2)
 ```
 
-### Alternatively add random intercepts by region ### 
+It did! We have a significant difference between the models, with model 2 having a higher log likelihood of the data.
+
+
+## Random intercept #3: region 
+
+Finally, we know that different brain regions have different levels of BOLD activity: regions close to large vessels will have strong responses to everything.
 
 ```{r}
-m.ri3 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Region), data = data.md.red);
-summary(m.ri3)
-
-anova(m.ri1, m.ri3)
+m.ri3 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + (1 | Region), 
+             data = data.md.red, REML=FALSE);
+coef(summary(m.ri3))    # fixed
+VarCorr(m.ri3)          # random
 ```
 
-### Now add random intercepts by both experiment and region ### 
+Previous model (m.ri2) reminder:
+ConditionW  0.4563056
+ConditionS  0.3443295
+
+This time, the fixed effect estimates remained almost the same.
+
+But did adding a random intercept by region improve model fit further? Yes, it did.
 
 ```{r}
-m.ri4 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red);
-summary(m.ri4)
+anova(m.ri2, m.ri3)
 ```
 
-### Does a random intercept by region improve the model beyond one with participant & experiment?
-```{r}
-anova(m.ri2, m.ri4)
-```
+## It gets better - random slopes
 
-### Does a random intercept by experiment improve the model beyond one with participant & region?
-```{r}
-anova(m.ri3, m.ri4)
-```
+Ok, our model is getting pretty complicated. But as you were reading about all those random intercepts, you might have been wondering - what if it's not just the mean activity that varies across participants/regions/experiments? What if participant A not only has stronger activity overall but also has stronger responses to Sentences specifically?
 
-### Now add random slopes
+This kind of structure can be captured too. We call it a random *slope* because if we plot Condition on the x axis and Response on the y axis, the effect of interest will be the slope of the line going from the W value to the S value. High slope = steeper increase in activation as we go from W to S.
+
+Remember that so far we have been specifying our random effects as (1 | RandomVar). What does this mean? It means, take the random effect on the right and estimate how it varies according to the fixed effects on the left. So far we've just had 1 on the left, which is our intercept. But now we also want to say that our random variables can vary by condition, so we add it to the left side too.
 
 ```{r}
-m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red);
-summary(m.ris)
+m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red, REML=FALSE);
 ```
 
-### Do random slopes help beyond random intercepts?
+Uh on, what happened here? We get a warning saying that our model failed to converge. That's not good - it means that our effect estimates might be imprecise.
+
+What can we do to solve this? We could play around with different optimizers to find the one that works. But generally, the reason why our model here doesn't converge is because it's too complicated - we have too many variables and not enough data. So for now, let's simplify and just add one random slope.
+
 ```{r}
-anova(m.ris, m.ri4)
+m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
+coef(summary(m.ris))    # fixed
+VarCorr(m.ris)          # random
 ```
 
-### We also have hemisphere as a variable in our model ### 
-### Note that below it's not included in the random structure, although it could / should be ###
+Note that the model also estimates the covariance between the random effect's intercept and slope. Here, these two effects are correlated: participants with higher overall responses will also have a higher S>W value.
+
+THINK: how can we modify equation \@ref(eq:mixedmodel1) to incorporate the random slope by condition?
+
+Let's check: did adding a random slope help beyond random intercepts? It did.
 ```{r}
-m.ris2 = lmer(Effect_Size ~ 0 + Condition*Hemisphere + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red);
-summary(m.ris2)
+anova(m.ris, m.ri3)
 ```
+
+Note that here I decided to only keep the random slope by participant, and it happened to actually be helpful. If possible, you should be more systematic when deciding on model structure. For details, see the next chapter.
+
+
+## Fixed effects can be more complicated too
+
+I will leave you with a final twist on our model.
+
+So far we've only looked at Condition as our fixed effect: our goal was to get to random effects as soon as possible. But there is another important source of variation in our data - Hemisphere.
+
+Since there are only two hemispheres, there is no reason to include it as a fixed effect (in this case, we'd have to imagine left and right hemispheres as samples from an infinite population of hemispheres...). So this is going to be our second fixed effect.
+
+```{r}
+m.ris2 = lmer(Effect_Size ~ 0 + Condition + Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
+coef(summary(m.ris2))    # fixed
+VarCorr(m.ris2)          # random
+```
+
+Great, now we know that left and right hemisphere do not have significantly different overall activity levels. But we also want to know whether our Condition effects vary by Hemisphere. What do we need to include? An interaction.
+
+```{r}
+m.ris3 = lmer(Effect_Size ~ 0 + Condition*Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
+coef(summary(m.ris3))    # fixed
+VarCorr(m.ris3)          # random
+```
+
+Here, * is a shortcut meaning "estimate the main effects and the interaction". Thus Condition*Hemisphere is equivalent to Condition + Hemisphere + Condition:Hemisphere, where : stands for the interaction itself. 
+
+And hey, looks like the Sentence responses in the right hemisphere are weaker than in the left. Who would have thought :)
+
+Let's do a final formal check to see whether adding the hemisphere terms was useful.
+
+```{r}
+anova(m.ris3, m.ris)
+```
+
+Yup, we explained additional variance.
+
+## Summary
+
+- Fixed effects in a linear mixed effect model act just like regular regression terms.
+- For categorical variables, the first level of a fixed effect variable acts like a baseline (unless you set the intercept to 0).
+- Random effects are not just numbers bur rather random variables. As such, you don't estimate a value for each level (e.g. mean activation for each participant) but instead find the variance around the mean. For instance, you might estimate how much each participant's data are likely to deviate from the mean value.
+- You can estimate random intercepts (how much does a random effect influence the baseline) and random slopes (how much does a random effec modulate a fixed effect)
+- You can decide whether adding a particular term improves model fit by conducting a likelihood ratio test. 
