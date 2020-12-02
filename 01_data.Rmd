@@ -1,0 +1,92 @@
+---
+title: "01_data"
+author: "Idan Blank, Rachel Ryskin, Anna Ivanova"
+date: "`r Sys.Date()`"
+output: html_document:
+  fig_width = 6
+  fig_height = 6
+---
+
+# Meet the Data
+
+## Setting up the environment
+
+We will need the following packages:
+
+- `tidyverse`: this is actually a collection of packages that we will use for dataframe manipulations and plotting the data
+
+- `lme4`: this is the package that provides us with tools for running the mixed effects model (such as the `lmer` function)
+
+- `lmerTest`: this is an addon to the `lme4` package that will estimate significance (p values) for each term
+
+```{r, results=FALSE, message=FALSE, warning=FALSE}
+# BEGINNNER TIP: before loading a package for the first time, you need to install it 
+# using the command install.packages("myPackageNameInQuotes")
+library(tidyverse)
+library(lme4)
+library(lmerTest)
+```
+
+## The data
+
+We will use data from the [paper](https://evlab.mit.edu/assets/papers/Diachek_Blank_Siegelman_et_al_2020_JNeurosci.pdf) by Diachek et al (2020): "The domain-general multiple demand (MD) network does not support core aspects of language comprehension: a large-scale fMRI investigation".
+
+In this work, the authors examined responses within 2 networks of interest - multiple demand and language - to **sentence reading** & **word reading** conditions across many different experiments. Each network contains multiple regions of interest (ROIs), 20 for MD and 6 for language; the MD regions are located in both hemispheres, whereas the language ROIs are only located in the left hemisphere. 
+
+The data can be downloaded from [OSF](https://osf.io/pdtk9/wiki/home/); a csv version we use in this tutorial is available in the tutorial's [Github repo](https://github.com/neuranna/mixedmodels-fmri/tree/main/data).
+
+Let's load and examine the data. In this tutorial, we will only be looking at the MD system.
+```{r}
+# load data
+data = read.csv('data/Diachek2020.csv', header=TRUE);
+data = subset(data, (System=="MD"));
+print(str(data))
+```
+
+You want to make sure that all your categorical variables are specified as [factors](https://www.tutorialspoint.com/r/r_factors.htm). Generally, R will default to treating numbers as type "numeric" and strings as factors, but it might help to be explicit:
+
+```{r}
+# COMMON MISTAKE: if you use numeric IDs (for participants, experiments, etc), they will be treated as numeric 
+# (i.e. experiment 2 > experiment 1). This is usually not what we want, so we can explicitly tell R that we want to treat a certain variable as a factor.
+data$Experiment = factor(data$Experiment)
+```
+
+You can also use the `factor` command to specify the order of the different values ("levels") that a given variable can take. If you don't specify the order, the levels will be ordered alphabetically.
+
+```{r}
+data$Condition = factor(data$Condition, levels=c('W', 'S'));
+```
+
+Let's take a look at our data!
+
+```{r}
+ggplot(data)+
+  stat_summary(aes(x=Condition, y=Effect_Size), fun.y="mean", geom="col")+
+  facet_wrap(~Region, ncol = 5)+
+  labs(title="By Region")+
+  theme(legend.position = "none",
+        plot.title=element_text(face="bold"))
+
+ggplot(data)+
+  stat_summary(aes(x=Condition, y=Effect_Size), fun.y="mean", geom="col")+
+  facet_wrap(~Experiment, ncol = 6)+
+  labs(title="By Experiment")+
+  theme(legend.position = "none",
+        plot.title=element_text(face="bold"))
+```
+
+We see that the responses vary quite a lot by brain region and experiment. Moreover, some experiments only include a sentence (S) or word (W) condition but not both. For simplicity, let's only include a subset of experiments (19-24)
+
+```{r}
+for (ii in 19:24) {
+  x = subset(data, Experiment == paste("Experiment", as.character(ii), sep=""))
+  if (ii==19){
+    data.md.red = x
+  } else {
+    data.md.red = rbind(data.md.red,x)
+  }
+}
+summary(data.md.red)
+```
+
+Now we're ready to analyze our data!
