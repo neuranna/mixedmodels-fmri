@@ -10,8 +10,8 @@ output: html_document
 ```{r, include=FALSE}
 # Loading R packages
 library(tidyverse)
-library(lmerTest)
 library(lme4)
+library(lmerTest)
 ```
 
 ```{r, include=FALSE}
@@ -38,7 +38,6 @@ for (ii in 19:24) {
     data.md.red = rbind(data.md.red,x);
   }
 }
-summary(data.md.red)
 ```
 
 ## Building from the ground up
@@ -139,8 +138,8 @@ NOTE: the likelihood ratio (LR) test only works for nested models, i.e. models t
 anova(m.lin.noCond, m.lin)
 ```
 
-
-## Random effect #1: participant
+## Adding random intercepts
+### Random intercept #1: participant
 
 Now we're ready to actually build a mixed effect model. 
 
@@ -197,7 +196,7 @@ m.noR = m.lin.noInt;
 anova(m.ri1, m.noR)
 ```
 
-## Random intercept #2: experiment 
+### Random intercept #2: experiment 
 
 Another way to think about random effects is that they specify additional clusters in the data. For instance, most datapoints from participant A will be shifted above the mean, while most datapoints from participant B will be below the mean. Points A and points B will form two different clusters. 
 
@@ -227,7 +226,7 @@ anova(m.ri1, m.ri2)
 It did! We have a significant difference between the models, with model 2 having a higher log likelihood of the data.
 
 
-## Random intercept #3: region 
+### Random intercept #3: region 
 
 Finally, we know that different brain regions have different levels of BOLD activity: regions close to large vessels will have strong responses to everything.
 
@@ -298,7 +297,7 @@ coef(summary(m.ris2))    # fixed
 VarCorr(m.ris2)          # random
 ```
 
-Great, now we know that left and right hemisphere do not have significantly different overall activity levels. But we also want to know whether our Condition effects vary by Hemisphere. What do we need to include? An interaction.
+Great, now we know that left and right hemisphere do not have significantly different overall activity levels^[during word reading - see section \@ref(interactionsV2)]. But we also want to know whether our Condition effects vary by Hemisphere. What do we need to include? An interaction.
 
 ```{r}
 m.ris3 = lmer(Effect_Size ~ 0 + Condition*Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
@@ -306,7 +305,7 @@ coef(summary(m.ris3))    # fixed
 VarCorr(m.ris3)          # random
 ```
 
-Here, * is a shortcut meaning "estimate the main effects and the interaction". Thus Condition*Hemisphere is equivalent to Condition + Hemisphere + Condition:Hemisphere, where : stands for the interaction itself. 
+Here, * is a shortcut meaning "estimate the main effects and the interaction". Thus `Condition*Hemisphere` is equivalent to `Condition + Hemisphere + Condition:Hemisphere`, where `:` stands for the interaction itself. 
 
 And hey, looks like the Sentence responses in the right hemisphere MD regions are weaker than in the left. 
 

@@ -1,0 +1,276 @@
+---
+title: "workshop"
+author: "Rachel Ryskin"
+date: "10/13/2020"
+output: html_document
+---
+
+```{r, include=FALSE}
+# Loading R packages
+library(tidyverse)
+library(lme4)
+library(lmerTest)
+```
+
+```{r, include=FALSE}
+# load data
+data = read.csv('data/Diachek2020.csv', header=TRUE);
+data$Experiment = factor(data$Experiment);
+data$System = factor(data$System);
+data$Region = factor(data$Region);
+data$SubjectID = factor(data$SubjectID);
+data$Hemisphere = factor(data$Hemisphere);
+data$Modality = factor(data$Modality);
+data$Task = factor(data$Task);
+data$Condition = factor(data$Condition, levels=c('W', 'S'));
+```
+
+```{r, include=FALSE}
+data.md = subset(data, (System=="MD"));
+  
+for (ii in 19:24) {
+  x = subset(data.md, Experiment == paste("Experiment", as.character(ii), sep=""));
+  if (ii==19){
+    data.md.red = x;
+  } else {
+    data.md.red = rbind(data.md.red,x);
+  }
+}
+```
+
+# The devil's in the details
+
+Now you know the basics of how to build a mixed effect model. But in some ways, your learning has just begun. Now you will face a million choices that you will have to make for each model you make. We discuss some of them in this chapter.
+
+## Testing significance
+
+How do I know which terms in my model are significantly different from 0? We've already used some methods for estimating significance in the last chapter, but let's be explicit here.
+
+### Method 1: Read the p-values directly from model summary
+ 
+Remember a term we had before, `ConditionS`? It is the estimate of the average `Effect_Size` for the Sentences > Words contrast. How do we know whether this effect is significant?
+ 
+`lmerTest` allows us to just get a p value associated with each (thanks to this package, we get an extra column in your output for every fixed effect we estimate)
+
+```{r}
+m1 = lmer(Effect_Size ~ 1 + Condition + (1 |SubjectID) + (1 |Experiment) + (1 |Region), 
+          data = data.md.red, REML=FALSE)
+summary(m1)
+```
+
+Look at Fixed effects -> ConditionS -> value in the Pr(>|t|) column is the p value of the "S" contrast, which in our case is Sentence>Word.
+
+Here's how you can report this effect:
+
+> The responses in the multiple demand (MD) network during sentence reading were lower than responses during word reading (beta=-0.11, SE=0.01, p<.001).
+
+Note that lmerTest only estimates p values for fixed effects, so if you want to estimate the significance of a random effect, you have to use Method 2.
+
+### Method 2: Model comparison
+
+We've done this a lot in the previous chapter, but just to summarize: 
+
+1. Create a "null" model where the predictor of interest is missing
+
+```{r}
+m1.null = lmer(Effect_Size ~ 1 + Condition + (1 |SubjectID) + (1 |Experiment), 
+          data = data.md.red, REML=FALSE)
+```
+
+2. Use the likelihood ratio test (the `anova()` command) to find out if the model with more parameters fits the data better.
+
+```{r}
+anova(m1.null, m1)
+```
+
+This tells you that Region matters but it doesn't tell you anything about which Region has higher or lower responses compared to the rest. 
+
+Here's how you can describe this result:
+
+> The overall response magnitude varied substantially by region ($\sigma$=0.28). The likelihood ratio test showed that adding the region intercept term significantly improved model fit ($X^2$=784.9, p<.001).
+
+### Method 3: pairwise tests
+
+If you just want the mean estimates for each condition and you want to compare them to 0, you can use `ls_means()` from `lmerTest`
+
+```{r}
+ls_means(m1)
+```
+
+Reporting:
+
+> The MD network's response to word reading was significantly above 0 (beta=0.41, SE=0.06, p<.001), and so was the response to sentence reading (beta=0.27, SE = 0.09, p=.006).
+
+You can also use the same function to run a bunch of pairwise comparisons. In the current model, it was reasonably easy to read the effects right off the coefficients but when there are more than 2 levels per predictor this can get trickier so tools like this can be handy.
+
+```{r}
+ls_means(m1, pairwise = TRUE)
+```
+
+THINK: how many rows would we get if we had three conditions (say, Word, Sentence and Paragraph)? Four? Five? Would we get all these estimates after running the lmer model?
+
+When models get more complicated you may need to switch to using [emmeans](https://cran.r-project.org/web/packages/emmeans/vignettes/comparisons.html), which is another package with lots of great ways to probe models.
+
+NOTE: when running follow-up analyses, don't forget to account for multiple comparisons. Emmeans provides ways to do this automatically (by specifying the right parameters), but for lmerTest's `ls_means` you'll have to do it manually.
+
+If you have multiple correlated predictors, things get harder. The main thing that can happen is that the estimates become unstable. In that case, it's safer to do model comparison (method 2). You can almost always find out if an effect explains useful variance or not, but you can't always tell what the direction or magnitude of the effect is.
+ 
+## Contrasts
+
+### Intro to contrast coding
+
+Let's take another look at the fixed effects in our model.
+
+```{r}
+m1 = lmer(Effect_Size ~ 1 + Condition + (1 |SubjectID) + (1 |Experiment) + (1 |Region), 
+          data = data.md.red, REML=FALSE)
+coef(summary(m1)) 
+```
+ 
+As we've mentioned before, the first level (W) becomes the intercept, and all other levels are contrasted against it. But why is that?
+ 
+Well let's see how R is treating these levels. Ultimately, in order to fit the model, R has to somehow convert them into numbers. Using the `contrasts()` function, you can see what those numbers are.
+
+```{r}
+contrasts(data.md.red$Condition)
+```
+
+This is called **dummy coding** - but there's nothing dumb about it! It's just the default in R. Another term for it is "treatment coding"
+
+But what if we don't want to treat the word reading condition in this privileged way? Turns out, you can set the contrasts manually:
+
+```{r}
+data.md.red.sum = data.frame(data.md.red)   # make a copy of the data
+contrasts(data.md.red.sum$Condition) = c(-0.5, 0.5)    # change the contrast
+colnames(attr(data.md.red.sum$Condition, "contrasts")) = "S>W"     # name the contrast (optional)
+contrasts(data.md.red.sum$Condition)     
+```
+
+Ok, looks confusing. What did we just do? 
+
+The difference between S and W remains 1. What has changed is where we place 0 (aka, the intercept). In dummy coding, 0 was aligned with the W condition. Now, it is *in between* W and S. Thus, our intercept will now reflect the average response across both W and S conditions.
+
+This way of setting up contrasts is called **sum coding** (or deviation coding).
+
+```{r}
+m1.sum = lmer(Effect_Size ~ 1 + Condition + (1 |SubjectID) + (1 |Experiment) + (1 |Region), 
+          data = data.md.red.sum, REML=FALSE)
+coef(summary(m1.sum)) 
+```
+
+ConditionS>W is still the difference between the 2 conditions.
+
+Does it really matter where we place the intercept? 
+
+a. It matters whenever you want to report the intercept value.
+
+b. It matters even more when we want to interpret interactions.
+
+
+### Applications to interactions {#interactionsV2}
+
+At the end of last chapter, we introduced a model with an interaction between 2 fixed effects - Condition and Hemisphere. Let's take a closer look at what exactly it tells us about our data.
+
+We'll start with a quick plot to see what results we should be expecting
+
+```{r}
+ggplot(data.md.red)+
+  stat_summary(aes(x=Hemisphere, y=Effect_Size, fill=Condition), 
+               geom="col", fun.y="mean", position=position_dodge(0.8))+
+  stat_summary(aes(x=Hemisphere, y=Effect_Size, group=Condition), 
+               geom='errorbar', fun.data='mean_se', position=position_dodge(0.8), width=0.2)
+```
+
+Based on this plot, we would expect to see the main effect of condition (W>S), maybe the main effect of hemisphere (L>R), and likely an interaction between hemisphere and condition (the W>S effect is larger in RH). Was that what we observed?
+
+```{r}
+m2 = lmer(Effect_Size ~ Condition*Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
+coef(summary(m2))    # fixed
+```
+
+The interaction between condition and hemisphere is indeed significant (beta=-0.08, SE=0.03, p=.001), but the effect of condition is not (beta=-0.07, SE=0.04, p=.064), and neither is the effect of hemisphere (beta=-0.08, SE=0.10, p=.424). Why is that? 
+
+Our intuition doesn't align with the model output because the hemisphere and condition effects here do not actually reflect the main effect of each factor. The reason why is because each fixed effect is evaluated with respect to the *intercept* of the other one. 
+ 
+Remember, this is the dataset where we're using the default dummy coding, so the intercept for condition is words and the intercept for hemisphere is left. As a result, 
+
+- under ConditionW we have the __simple effect__ of Condition: Words>Sentences but only for the left hemisphere. And it's indeed pretty small. 
+
+- under HemisphereR we have the __simple effect__ of Hemisphere: Right>Left but only for words. Looking at the plot, we can verify that the hemisphere difference for words is indeed ~0.08 (as predicted by our beta value).
+
+In order to estimate the __main effects__, we want to use sum coding. Then, the intercept will reflect the average response for each factor across levels.  
+
+We've already done this for condition:
+
+```{r}
+contrasts(data.md.red.sum$Condition)
+```
+
+Let's do it for hemisphere too:
+
+```{r}
+contrasts(data.md.red.sum$Hemisphere) = c(-0.5, 0.5)
+colnames(attr(data.md.red.sum$Hemisphere, "contrasts")) = "R>L" 
+contrasts(data.md.red.sum$Hemisphere)
+```
+
+Now the effect of hemisphere will be estimated with respect to the *average* response for words and sentences, and the effect of condition will be estimated with respect to the *average* response across hemispheres.
+
+```{r}
+m2.sum = lmer(Effect_Size ~ Condition*Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red.sum, REML=FALSE);
+coef(summary(m2.sum))    
+```
+
+Notice that the interaction remained the same but the simple effects changed. The effect of condition is now significant (beta=-0.11, SE=0.03, p=.001); the effect of hemisphere is not significant (beta=-0.12, SE=0.09, p=.217), but its estimate is larger and actually reflects the mean difference between L and R hemispheres.
+
+THINK: What does the intercept term reflect in `m2` and in `m2.sum`? 
+
+Of course, we don't always want to transform everything to sum coding. It might be totally reasonable to estimate the effect of hemispheres for words rather than for the word/sentence average. You just want to be clear about how you're setting your contrasts because it will have a big impact on how to interpret the results.
+
+
+## Convergence issues
+
+### Solution 1: try other optimizers
+
+```{r}
+m2.bobyqa<-lmer(Effect_Size ~ 1 + Condition + (1 + Condition |SubjectID) + (1 + Condition |Experiment) + (1+Condition |Region), 
+                data = data.md.red, 
+                control = lmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=2e5)))
+
+summary(m2.bobyqa)
+```
+
+In principle, there is a built in function, `allFit` which will run all the optimizers for you. Then you can look at their fixed effects and determine whether the estimates across all are the same (out to ~4 sig digits) or not. If they are, then it's probably fine to use the model estimates. (Check lme4 documentation for more details) 
+
+### Solution 2: brms 
+
+https://paul-buerkner.github.io/brms/
+
+pro: highly flexible, very similar syntax
+
+con: takes much longer, some new stuff to learn
+
+### Solution 3: REML
+
+In all the examples above, we fit our model using maximum likelihood. The default for `lmer` is actually [restricted maximum likelihood](https://en.wikipedia.org/wiki/Restricted_maximum_likelihood) (REML). Because it fits the data in stages, in some cases it might make it easier for the model to converge.
+
+### Solution 4: simplify your model
+
+Simplify your model iteratively, removing random effects which account for least variance first
+
+```{r}
+
+#summary(m2)
+
+```
+
+
+Here that's Condition1 slope by Region so let's try removing that:
+
+```{r}
+m2.1 = lmer(Effect_Size ~ 1 + Condition + (1 + Condition|SubjectID) + (1 + Condition|Experiment) + (1 |Region), data = data.md.red)
+summary(m2.1)
+
+```
+
+Okay that didn't do it...we could keep going but it's somewhat arbitrary and it's hard to justify throwing out theoretically meaningful slopes
