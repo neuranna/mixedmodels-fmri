@@ -1,6 +1,6 @@
 ---
-title: "Diachek et al. Critical analyses"
-author: "Idan Blank & Anna Ivanova"
+title: "Main analyses"
+author: "Idan Blank, Anna Ivanova"
 date: "`r Sys.Date()`"
 output: html_document
 ---

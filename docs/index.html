@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>index</title>
-  <meta name="description" content="index" />
+  <title>Mixed Effect Models</title>
+  <meta name="description" content="Mixed Effect Models" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="index" />
+  <meta property="og:title" content="Mixed Effect Models" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="index" />
+  <meta name="twitter:title" content="Mixed Effect Models" />
   
   
   
 
-<meta name="author" content="Anna Ivanova" />
+<meta name="author" content="Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain" />
 
 
-<meta name="date" content="2020-11-25" />
+<meta name="date" content="2020-12-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="building-your-first-mixed-model.html"/>
+<link rel="next" href="meet-the-data.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,68 +54,6 @@
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 </head>
 
@@ -130,21 +68,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
-<li class="chapter" data-level="2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html"><i class="fa fa-check"></i><b>2</b> Building your first mixed model</a><ul>
-<li class="chapter" data-level="2.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#load-data"><i class="fa fa-check"></i><b>2.1</b> Load data</a></li>
-<li class="chapter" data-level="2.2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#building-from-the-ground-up"><i class="fa fa-check"></i><b>2.2</b> Building from the ground up</a></li>
-<li class="chapter" data-level="2.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#a-model-with-1-fixed-effect"><i class="fa fa-check"></i><b>2.3</b> A model with 1 fixed effect</a></li>
-<li class="chapter" data-level="2.4" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#was-it-worth-it-model-comparison"><i class="fa fa-check"></i><b>2.4</b> Was it worth it? Model comparison</a></li>
-<li class="chapter" data-level="2.5" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#adding-the-first-random-effect-participant"><i class="fa fa-check"></i><b>2.5</b> Adding the first random effect: participant</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#now-add-random-intercepts-by-experiment"><i class="fa fa-check"></i><b>2.5.1</b> Now add random intercepts by experiment</a></li>
-<li class="chapter" data-level="2.5.2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#alternatively-add-random-intercepts-by-region"><i class="fa fa-check"></i><b>2.5.2</b> Alternatively add random intercepts by region</a></li>
-<li class="chapter" data-level="2.5.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#now-add-random-intercepts-by-both-experiment-and-region"><i class="fa fa-check"></i><b>2.5.3</b> Now add random intercepts by both experiment and region</a></li>
-<li class="chapter" data-level="2.5.4" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#does-a-random-intercept-by-region-improve-the-model-beyond-one-with-participant-experiment"><i class="fa fa-check"></i><b>2.5.4</b> Does a random intercept by region improve the model beyond one with participant &amp; experiment?</a></li>
-<li class="chapter" data-level="2.5.5" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#does-a-random-intercept-by-experiment-improve-the-model-beyond-one-with-participant-region"><i class="fa fa-check"></i><b>2.5.5</b> Does a random intercept by experiment improve the model beyond one with participant &amp; region?</a></li>
-<li class="chapter" data-level="2.5.6" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#now-add-random-slopes"><i class="fa fa-check"></i><b>2.5.6</b> Now add random slopes</a></li>
-<li class="chapter" data-level="2.5.7" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#do-random-slopes-help-beyond-random-intercepts"><i class="fa fa-check"></i><b>2.5.7</b> Do random slopes help beyond random intercepts?</a></li>
-<li class="chapter" data-level="2.5.8" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#we-also-have-hemisphere-as-a-variable-in-our-model"><i class="fa fa-check"></i><b>2.5.8</b> We also have hemisphere as a variable in our model</a></li>
-<li class="chapter" data-level="2.5.9" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#note-that-below-its-not-included-in-the-random-structure-although-it-could-should-be"><i class="fa fa-check"></i><b>2.5.9</b> Note that below it’s not included in the random structure, although it could / should be</a></li>
+<li class="chapter" data-level="2" data-path="meet-the-data.html"><a href="meet-the-data.html"><i class="fa fa-check"></i><b>2</b> Meet the Data</a><ul>
+<li class="chapter" data-level="2.1" data-path="meet-the-data.html"><a href="meet-the-data.html#setting-up-the-environment"><i class="fa fa-check"></i><b>2.1</b> Setting up the environment</a></li>
+<li class="chapter" data-level="2.2" data-path="meet-the-data.html"><a href="meet-the-data.html#the-data"><i class="fa fa-check"></i><b>2.2</b> The data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html"><i class="fa fa-check"></i><b>3</b> Building your first mixed model</a><ul>
+<li class="chapter" data-level="3.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#building-from-the-ground-up"><i class="fa fa-check"></i><b>3.1</b> Building from the ground up</a></li>
+<li class="chapter" data-level="3.2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#a-model-with-1-fixed-effect"><i class="fa fa-check"></i><b>3.2</b> A model with 1 fixed effect</a></li>
+<li class="chapter" data-level="3.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#was-it-worth-it-model-comparison"><i class="fa fa-check"></i><b>3.3</b> Was it worth it? Model comparison</a></li>
+<li class="chapter" data-level="3.4" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#adding-random-intercepts"><i class="fa fa-check"></i><b>3.4</b> Adding random intercepts</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#random-intercept-1-participant"><i class="fa fa-check"></i><b>3.4.1</b> Random intercept #1: participant</a></li>
+<li class="chapter" data-level="3.4.2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#random-intercept-2-experiment"><i class="fa fa-check"></i><b>3.4.2</b> Random intercept #2: experiment</a></li>
+<li class="chapter" data-level="3.4.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#random-intercept-3-region"><i class="fa fa-check"></i><b>3.4.3</b> Random intercept #3: region</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#randomslopes"><i class="fa fa-check"></i><b>3.5</b> It gets better - random slopes</a></li>
+<li class="chapter" data-level="3.6" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#fixed-effects-can-be-more-complicated-too"><i class="fa fa-check"></i><b>3.6</b> Fixed effects can be more complicated too</a></li>
+<li class="chapter" data-level="3.7" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#summary"><i class="fa fa-check"></i><b>3.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html"><i class="fa fa-check"></i><b>4</b> The devil’s in the details</a><ul>
+<li class="chapter" data-level="4.1" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#testing-significance"><i class="fa fa-check"></i><b>4.1</b> Testing significance</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#method-1-read-the-p-values-directly-from-model-summary"><i class="fa fa-check"></i><b>4.1.1</b> Method 1: Read the p-values directly from model summary</a></li>
+<li class="chapter" data-level="4.1.2" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#method-2-model-comparison"><i class="fa fa-check"></i><b>4.1.2</b> Method 2: Model comparison</a></li>
+<li class="chapter" data-level="4.1.3" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#method-3-pairwise-tests"><i class="fa fa-check"></i><b>4.1.3</b> Method 3: pairwise tests</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#contrasts"><i class="fa fa-check"></i><b>4.2</b> Contrasts</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#intro-to-contrast-coding"><i class="fa fa-check"></i><b>4.2.1</b> Intro to contrast coding</a></li>
+<li class="chapter" data-level="4.2.2" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#interactionsV2"><i class="fa fa-check"></i><b>4.2.2</b> Applications to interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#convergence"><i class="fa fa-check"></i><b>4.3</b> Convergence issues</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-1-try-other-optimizers"><i class="fa fa-check"></i><b>4.3.1</b> Solution 1: try other optimizers</a></li>
+<li class="chapter" data-level="4.3.2" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-2-brms"><i class="fa fa-check"></i><b>4.3.2</b> Solution 2: brms</a></li>
+<li class="chapter" data-level="4.3.3" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-3-reml"><i class="fa fa-check"></i><b>4.3.3</b> Solution 3: REML</a></li>
+<li class="chapter" data-level="4.3.4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-4-simplify-your-model"><i class="fa fa-check"></i><b>4.3.4</b> Solution 4: simplify your model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#summary-1"><i class="fa fa-check"></i><b>4.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="meta-decisions.html"><a href="meta-decisions.html"><i class="fa fa-check"></i><b>5</b> Meta Decisions</a><ul>
+<li class="chapter" data-level="5.1" data-path="meta-decisions.html"><a href="meta-decisions.html#brain-regions-fixed-or-random"><i class="fa fa-check"></i><b>5.1</b> Brain regions: fixed or random?</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="meta-decisions.html"><a href="meta-decisions.html#as-a-fixed-effect"><i class="fa fa-check"></i><b>5.1.1</b> As a fixed effect</a></li>
+<li class="chapter" data-level="5.1.2" data-path="meta-decisions.html"><a href="meta-decisions.html#as-a-random-effect"><i class="fa fa-check"></i><b>5.1.2</b> As a random effect</a></li>
+<li class="chapter" data-level="5.1.3" data-path="meta-decisions.html"><a href="meta-decisions.html#beyond-brain-region"><i class="fa fa-check"></i><b>5.1.3</b> Beyond brain region</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -156,7 +119,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">index</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mixed Effect Models</a>
           </h1>
         </div>
 
@@ -165,13 +128,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">index</h1>
-<p class="author"><em>Anna Ivanova</em></p>
-<p class="date"><em>2020-11-25</em></p>
+<h1 class="title">Mixed Effect Models</h1>
+<p class="author"><em>Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain</em></p>
+<p class="date"><em>2020-12-04</em></p>
 </div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> INTRODUCTION</h1>
-<p>Here I will tell you what this manual is all abou</p>
+<p>Here I will tell you what this manual is all about</p>
+<p>TODO:
+- replace 0 intercepts in Idan’s file</p>
+<ul>
+<li>data likelihood (separate section)</li>
+</ul>
 
 </div>
             </section>
@@ -180,7 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="building-your-first-mixed-model.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="meet-the-data.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -230,20 +198,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

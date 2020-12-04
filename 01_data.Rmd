@@ -38,8 +38,8 @@ The data can be downloaded from [OSF](https://osf.io/pdtk9/wiki/home/); a csv ve
 Let's load and examine the data. In this tutorial, we will only be looking at the MD system.
 ```{r}
 # load data
-data = read.csv('data/Diachek2020.csv', header=TRUE);
-data = subset(data, (System=="MD"));
+data = read.csv('data/Diachek2020.csv', header=TRUE)
+data = subset(data, (System=="MD"))
 print(str(data))
 ```
 
@@ -54,7 +54,7 @@ data$Experiment = factor(data$Experiment)
 You can also use the `factor` command to specify the order of the different values ("levels") that a given variable can take. If you don't specify the order, the levels will be ordered alphabetically.
 
 ```{r}
-data$Condition = factor(data$Condition, levels=c('W', 'S'));
+data$Condition = factor(data$Condition, levels=c('W', 'S'))
 ```
 
 Let's take a look at our data!

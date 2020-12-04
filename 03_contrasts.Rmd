@@ -1,7 +1,7 @@
 ---
-title: "workshop"
-author: "Rachel Ryskin"
-date: "10/13/2020"
+title: "Details"
+author: "Rachel Ryskin, Anna Ivanova"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
@@ -115,7 +115,7 @@ NOTE: when running follow-up analyses, don't forget to account for multiple comp
 
 If you have multiple correlated predictors, things get harder. The main thing that can happen is that the estimates become unstable. In that case, it's safer to do model comparison (method 2). You can almost always find out if an effect explains useful variance or not, but you can't always tell what the direction or magnitude of the effect is.
  
-## Contrasts
+## Contrasts {#contrasts}
 
 ### Intro to contrast coding
 
@@ -276,7 +276,7 @@ summary(m.ris.reml)
 This method worked too. Note, however, that if you then try to use the `anova()` function on the model, it will automatically refit using maximum likelihood - which brings us back to square one.
 
 
-### Solution 4: simplify your model
+### Solution 4: simplify your model {#convergence-simplify}
 
 The convergence issues can arise if your model is too complicated and/or if there isn't enough data to estimate all the parameters. 
 
