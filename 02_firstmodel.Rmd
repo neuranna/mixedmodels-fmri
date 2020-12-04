@@ -249,7 +249,7 @@ But did adding a random intercept by region improve model fit further? Yes, it d
 anova(m.ri2, m.ri3)
 ```
 
-## It gets better - random slopes
+## It gets better - random slopes {#randomslopes}
 
 Ok, our model is getting pretty complicated. But as you were reading about all those random intercepts, you might have been wondering - what if it's not just the mean activity that varies across participants/regions/experiments? What if participant A not only has stronger activity overall but also has stronger responses to Sentences specifically?
 
@@ -263,7 +263,7 @@ m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + Co
 
 Uh oh, what happened here? We get a warning saying that our model failed to converge. That's not good - it means that our effect estimates might be imprecise.
 
-What can we do to solve this? We could play around with different optimizers to find the one that works. But generally, the reason why our model here doesn't converge is because it's too complicated - we have too many variables and not enough data. So for now, let's simplify and just add one random slope.
+What can we do to solve this? There are a few technical tricks we can use to force the model to converge (see section \@ref(convergence)). But generally, the reason why our model here doesn't converge is because it's too complicated - we have too many variables and not enough data. So for now, let's simplify and just add one random slope.
 
 ```{r}
 m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);

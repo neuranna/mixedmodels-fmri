@@ -1,6 +1,6 @@
 ---
-title: "index"
-author: "Anna Ivanova"
+title: "Mixed Effect Models"
+author: "Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:
@@ -9,8 +9,17 @@ output:
 
 # INTRODUCTION
 
-Here I will tell you what this manual is all abou
+Here I will tell you what this manual is all about
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+
+TODO:
+- replace 0 intercepts in Idan's file
+
+- data likelihood (separate section)
+
+

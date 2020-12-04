@@ -225,52 +225,113 @@ Notice that the interaction remained the same but the simple effects changed. Th
 
 THINK: What does the intercept term reflect in `m2` and in `m2.sum`? 
 
-Of course, we don't always want to transform everything to sum coding. It might be totally reasonable to estimate the effect of hemispheres for words rather than for the word/sentence average. You just want to be clear about how you're setting your contrasts because it will have a big impact on how to interpret the results.
+Of course, we don't always want to transform everything to sum coding. It might be totally reasonable to estimate the effect of hemisphere for words rather than for the word/sentence average. You just want to be clear about how you're coding your contrasts because it will have a big impact on how to interpret the results.
 
 
-## Convergence issues
+## Convergence issues {#convergence}
+
+Remember we got a warning in section \@ref(randomslopes) saying that our model doesn't converge? We'll repeat that example here:
+
+```{r}
+m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red, REML=FALSE);
+coef(summary(m.ris))    # fixed
+VarCorr(m.ris)          # random
+```
+
+Let's take a look at the strategies we can use to resolve this issue.
 
 ### Solution 1: try other optimizers
 
-```{r}
-m2.bobyqa<-lmer(Effect_Size ~ 1 + Condition + (1 + Condition |SubjectID) + (1 + Condition |Experiment) + (1+Condition |Region), 
-                data = data.md.red, 
-                control = lmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=2e5)))
+We can use a different optimizer and/or explicitly specify the stopping criterion.
 
-summary(m2.bobyqa)
+```{r}
+m.ris.bobyqa = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red, REML=FALSE,
+                control = lmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=2e5)))
+coef(summary(m.ris.bobyqa))    # fixed
+VarCorr(m.ris.bobyqa)          # random
 ```
 
-In principle, there is a built in function, `allFit` which will run all the optimizers for you. Then you can look at their fixed effects and determine whether the estimates across all are the same (out to ~4 sig digits) or not. If they are, then it's probably fine to use the model estimates. (Check lme4 documentation for more details) 
+It worked! No more convergence issues.
+
+What if bobyqa didn't converge? Instead of just specifying a single optimizer, you can use the function `allFit` which will run all the optimizers for you, and hopefully at least some of them fit. See [lme4 documentation](https://rdrr.io/cran/lme4/man/allFit.html) for more details.
+
+`allFit` can also be used to determine whether you can trust your estimates. For this, you can fit the model with multiple optimizers, look at the fixed effects and determine whether the estimates across all optimizers are the same (out to ~4 sig digits). If they are, then it's probably fine to use the model estimates. 
 
 ### Solution 2: brms 
 
 https://paul-buerkner.github.io/brms/
 
-pro: highly flexible, very similar syntax
-
-con: takes much longer, some new stuff to learn
+This is a package for Bayesian modeling; it is based on the probabilistic programming language called Stan. The syntax for specifying the model is very similar to lme4, but switching from a frequentist to a Bayesian approach to modeling might require some extra work. These models might also take a while to run.
 
 ### Solution 3: REML
 
 In all the examples above, we fit our model using maximum likelihood. The default for `lmer` is actually [restricted maximum likelihood](https://en.wikipedia.org/wiki/Restricted_maximum_likelihood) (REML). Because it fits the data in stages, in some cases it might make it easier for the model to converge.
 
+```{r}
+m.ris.reml = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red, REML=TRUE)
+
+summary(m.ris.reml)
+```
+
+This method worked too. Note, however, that if you then try to use the `anova()` function on the model, it will automatically refit using maximum likelihood - which brings us back to square one.
+
+
 ### Solution 4: simplify your model
 
-Simplify your model iteratively, removing random effects which account for least variance first
+The convergence issues can arise if your model is too complicated and/or if there isn't enough data to estimate all the parameters. 
+
+THINK: how many parameters does `m.ris` need to estimate? (Hint: don't forget about the correlations between random effects)
+
+There is no one answer to how many samples are sufficient, but if it's 2 per parameter, it's too low (e.g. we're estimating the participant by condition slope, and we only have estimates for 2 ROIs, it's hard to decide how much variance should go into ROI terms and how much should be assigned to the participant x condition slope). Note that it's not about the number of datapoints but rather the number of groupings.
+
+In some cases, you will get a `singular fit` warning. We can also check for it explicitly:
 
 ```{r}
-
-#summary(m2)
-
+isSingular(m.ris)
 ```
 
+A singular model means that one of the random effects (or a combination of random effects) is zero. While mathematically such a model is well-defined, in practice this model often means that the model overfits: there is not enough power to distinguish 
 
-Here that's Condition1 slope by Region so let's try removing that:
+All in all, if you suspect that your model is at risk of overfitting the data, you should consider simplifying your model.
+
+A general recommendation is to first remove random effects which account for least variance.
 
 ```{r}
-m2.1 = lmer(Effect_Size ~ 1 + Condition + (1 + Condition|SubjectID) + (1 + Condition|Experiment) + (1 |Region), data = data.md.red)
-summary(m2.1)
-
+VarCorr(m.ris)
 ```
 
-Okay that didn't do it...we could keep going but it's somewhat arbitrary and it's hard to justify throwing out theoretically meaningful slopes
+(Admittedly, this step is a bit weird since the reason we're simplifying the model is because we don't trust these estimates to begin with. You can also try estimating these random effects individually in simpler models & then comparing the magnitudes.)
+
+Our lowest random effect is the Condition x Experiment slope, so let's try removing that:
+
+```{r}
+m.ris.red = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 | Experiment) + (1 + Condition | Region), data = data.md.red, REML=FALSE)
+```
+
+Okay that didn't do it... Let's try one more - the variance estimate for the Condition x Region slope is also pretty low.
+
+```{r}
+m.ris.red = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE)
+
+coef(summary(m.ris.red))    # fixed
+VarCorr(m.ris.red)          # random
+```
+
+Alright, now our model finally converges.
+
+In short, here is what you should do when encountering convergence issues:
+
+1. Make sure your model structure is justified (more on that in the next chapter).
+
+2. Try to make the model converge by tinkering with the optimization procedure.
+
+
+## Summary
+
+- You can estimate the significance of fixed effects using the lmerTest package; besides the p value, we also recommend reporting the effect size and the standard error of the estimate.
+
+- You can estimate the significance of a random effect by performing the likelihood ratio test; note, however, that this test does not allow you to estimate the direction or the magnitude of the effect.
+
+- Be mindful of the contrasts you're setting for your categorical variables (explicitly or implicitly).
+
+- When running into convergence issues, make sure your model structure makes sense given your dataset and then try one of the technical solutions, e.g. a different optimizer.
