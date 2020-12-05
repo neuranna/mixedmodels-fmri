@@ -7,7 +7,7 @@ output: html_document:
   fig_height = 6
 ---
 
-# Meet the Data
+# Meet the data
 
 ## Setting up the environment
 

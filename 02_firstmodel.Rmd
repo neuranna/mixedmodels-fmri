@@ -181,7 +181,7 @@ The previous models did not have any random terms, and so we evaluated it using 
 ```{r}
 # I want to evaluate the model by maximum likelihood, not restricted maximum likelihood (REML),
 # so I'm setting REML to FALSE
-m.ri1 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID), data = data.md.red,
+m.ri1 = lmer(Effect_Size ~ Condition + (1 | SubjectID), data = data.md.red,
              REML=FALSE);
 summary(m.ri1)
 ```
@@ -206,15 +206,15 @@ We assume that the mean responses to both conditions will vary across experiment
 
 To save space, from now on we will only print out fixed and random effect estimates.
 ```{r}
-m.ri2 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment), data = data.md.red,
+m.ri2 = lmer(Effect_Size ~ Condition + (1 | SubjectID) + (1 | Experiment), data = data.md.red,
              REML=FALSE);
 coef(summary(m.ri2))    # fixed
 VarCorr(m.ri2)          # random
 ```
 
 Previous model (m.ri1) reminder:
-ConditionW  0.47423
-ConditionS  0.36225 
+ConditionW  0.47069
+ConditionS  -0.11198 
 
 We see again that changing the random effect structure affects the fixed effects too.
 
@@ -231,7 +231,7 @@ It did! We have a significant difference between the models, with model 2 having
 Finally, we know that different brain regions have different levels of BOLD activity: regions close to large vessels will have strong responses to everything.
 
 ```{r}
-m.ri3 = lmer(Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + (1 | Region), 
+m.ri3 = lmer(Effect_Size ~ Condition + (1 | SubjectID) + (1 | Experiment) + (1 | Region), 
              data = data.md.red, REML=FALSE);
 coef(summary(m.ri3))    # fixed
 VarCorr(m.ri3)          # random
@@ -239,7 +239,7 @@ VarCorr(m.ri3)          # random
 
 Previous model (m.ri2) reminder:
 ConditionW  0.4563056
-ConditionS  0.3443295
+ConditionS  -0.1119761
 
 This time, the fixed effect estimates remained almost the same.
 
@@ -258,7 +258,7 @@ This kind of structure can be captured too. We call it a random *slope* because 
 Remember that so far we have been specifying our random effects as (1 | RandomVar). What does this mean? It means, take the random effect on the right and estimate how it varies according to the fixed effects on the left. So far we've just had 1 on the left, which is our intercept. But now we also want to say that our random variables can vary by condition, so we add it to the left side too.
 
 ```{r}
-m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red, REML=FALSE);
+m.ris = lmer(Effect_Size ~ Condition + (1 + Condition | SubjectID) + (1 + Condition| Experiment) + (1 + Condition | Region), data = data.md.red, REML=FALSE);
 ```
 
 Uh oh, what happened here? We get a warning saying that our model failed to converge. That's not good - it means that our effect estimates might be imprecise.
@@ -266,7 +266,7 @@ Uh oh, what happened here? We get a warning saying that our model failed to conv
 What can we do to solve this? There are a few technical tricks we can use to force the model to converge (see section \@ref(convergence)). But generally, the reason why our model here doesn't converge is because it's too complicated - we have too many variables and not enough data. So for now, let's simplify and just add one random slope.
 
 ```{r}
-m.ris = lmer(Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
+m.ris = lmer(Effect_Size ~ Condition + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
 coef(summary(m.ris))    # fixed
 VarCorr(m.ris)          # random
 ```
@@ -280,7 +280,7 @@ Let's check: did adding a random slope help beyond random intercepts? It did.
 anova(m.ris, m.ri3)
 ```
 
-Note that here I decided to only keep the random slope by participant, and it happened to actually be helpful. If possible, you should be more systematic when deciding on model structure. For details, see the next chapter.
+Note that here I decided to only keep the random slope by participant, and it happened to actually be helpful. If possible, you should be more systematic when deciding on model structure. For details, see section \@ref(convergence-simplify).
 
 
 ## Fixed effects can be more complicated too
@@ -292,7 +292,7 @@ So far we've only looked at Condition as our fixed effect: our goal was to get t
 Since there are only two hemispheres, there is no reason to include it as a fixed effect (in this case, we'd have to imagine left and right hemispheres as samples from an infinite population of hemispheres...). So this is going to be our second fixed effect.
 
 ```{r}
-m.ris2 = lmer(Effect_Size ~ 0 + Condition + Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
+m.ris2 = lmer(Effect_Size ~ Condition + Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
 coef(summary(m.ris2))    # fixed
 VarCorr(m.ris2)          # random
 ```
@@ -300,7 +300,7 @@ VarCorr(m.ris2)          # random
 Great, now we know that left and right hemisphere do not have significantly different overall activity levels^[during word reading - see section \@ref(interactionsV2)]. But we also want to know whether our Condition effects vary by Hemisphere. What do we need to include? An interaction.
 
 ```{r}
-m.ris3 = lmer(Effect_Size ~ 0 + Condition*Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
+m.ris3 = lmer(Effect_Size ~ Condition*Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
 coef(summary(m.ris3))    # fixed
 VarCorr(m.ris3)          # random
 ```

@@ -144,7 +144,7 @@ The two-stage model is computationally much more feasible (which is why it is al
 
 ## Conclusion
 
-All in all, this is an exciting time. The mixed effects modeling approach has conquered many fields and is now making steady advances in neuroimaging. Many practices remain to be developed, ratified and accepted by the community, but we can already use mixed effect models to account for previously ignored structure in our data. Hopefully this tutorial provided a helpful introduction!
+All in all, this is an exciting time. The mixed effects modeling approach has conquered many fields and is now making steady advances in neuroimaging. Many practices remain to be developed, ratified and accepted by the community, but we can already use mixed effect models to account for previously ignored structure in our data. Hopefully this tutorial provided a helpful introduction to the topic!
 
 
 

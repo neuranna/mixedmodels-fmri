@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Mixed Effect Models</title>
-  <meta name="description" content="Mixed Effect Models" />
+  <title>Mixed Effect Models for fMRI</title>
+  <meta name="description" content="Mixed Effect Models for fMRI" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Mixed Effect Models" />
+  <meta property="og:title" content="Mixed Effect Models for fMRI" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Mixed Effect Models" />
+  <meta name="twitter:title" content="Mixed Effect Models for fMRI" />
   
   
   
@@ -54,6 +54,68 @@
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 </head>
 
@@ -68,7 +130,7 @@
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
-<li class="chapter" data-level="2" data-path="meet-the-data.html"><a href="meet-the-data.html"><i class="fa fa-check"></i><b>2</b> Meet the Data</a><ul>
+<li class="chapter" data-level="2" data-path="meet-the-data.html"><a href="meet-the-data.html"><i class="fa fa-check"></i><b>2</b> Meet the data</a><ul>
 <li class="chapter" data-level="2.1" data-path="meet-the-data.html"><a href="meet-the-data.html#setting-up-the-environment"><i class="fa fa-check"></i><b>2.1</b> Setting up the environment</a></li>
 <li class="chapter" data-level="2.2" data-path="meet-the-data.html"><a href="meet-the-data.html#the-data"><i class="fa fa-check"></i><b>2.2</b> The data</a></li>
 </ul></li>
@@ -99,7 +161,7 @@
 <li class="chapter" data-level="4.3.1" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-1-try-other-optimizers"><i class="fa fa-check"></i><b>4.3.1</b> Solution 1: try other optimizers</a></li>
 <li class="chapter" data-level="4.3.2" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-2-brms"><i class="fa fa-check"></i><b>4.3.2</b> Solution 2: brms</a></li>
 <li class="chapter" data-level="4.3.3" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-3-reml"><i class="fa fa-check"></i><b>4.3.3</b> Solution 3: REML</a></li>
-<li class="chapter" data-level="4.3.4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#solution-4-simplify-your-model"><i class="fa fa-check"></i><b>4.3.4</b> Solution 4: simplify your model</a></li>
+<li class="chapter" data-level="4.3.4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#convergence-simplify"><i class="fa fa-check"></i><b>4.3.4</b> Solution 4: simplify your model</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html#summary-1"><i class="fa fa-check"></i><b>4.4</b> Summary</a></li>
 </ul></li>
@@ -109,6 +171,9 @@
 <li class="chapter" data-level="5.1.2" data-path="meta-decisions.html"><a href="meta-decisions.html#as-a-random-effect"><i class="fa fa-check"></i><b>5.1.2</b> As a random effect</a></li>
 <li class="chapter" data-level="5.1.3" data-path="meta-decisions.html"><a href="meta-decisions.html#beyond-brain-region"><i class="fa fa-check"></i><b>5.1.3</b> Beyond brain region</a></li>
 </ul></li>
+<li class="chapter" data-level="5.2" data-path="meta-decisions.html"><a href="meta-decisions.html#model-complexity"><i class="fa fa-check"></i><b>5.2</b> Model complexity</a></li>
+<li class="chapter" data-level="5.3" data-path="meta-decisions.html"><a href="meta-decisions.html#single-subject-mixed-analyses"><i class="fa fa-check"></i><b>5.3</b> Single-subject mixed analyses?</a></li>
+<li class="chapter" data-level="5.4" data-path="meta-decisions.html"><a href="meta-decisions.html#conclusion"><i class="fa fa-check"></i><b>5.4</b> Conclusion</a></li>
 </ul></li>
 </ul>
 
@@ -119,7 +184,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mixed Effect Models</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mixed Effect Models for fMRI</a>
           </h1>
         </div>
 
@@ -128,18 +193,20 @@
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Mixed Effect Models</h1>
+<h1 class="title">Mixed Effect Models for fMRI</h1>
 <p class="author"><em>Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain</em></p>
 <p class="date"><em>2020-12-04</em></p>
 </div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> INTRODUCTION</h1>
-<p>Here I will tell you what this manual is all about</p>
-<p>TODO:
-- replace 0 intercepts in Idan’s file</p>
-<ul>
-<li>data likelihood (separate section)</li>
-</ul>
+<p>This is a tutorial on how to conduct group-level statistical analyses of fMRI data using mixed effect linear models in R. It arose out of an extended <a href="https://evlab.mit.edu/">Evlab</a> meeting and reflects our practices at the time. We expect to develop and improve upon them as time goes by.</p>
+<p>This tutorial assumes that you have already conducted subject-level analyses and extracted average response values for each brain region of interest (ROI). It assumes no previous knowledge of R and only a bit of stats (e.g. we will remind you the basics of linear regression but will assume that you know what p-values are for). Our goal is to:</p>
+<ol style="list-style-type: decimal">
+<li><p>Explain the basic logic behind linear mixed effect models.</p></li>
+<li><p>Show how to run them in R using the <code>lme4</code> package.</p></li>
+<li><p>Discuss how to interpret the results you get.</p></li>
+<li><p>Highlight the major decision points you as a modeler will have to make along the way.</p></li>
+</ol>
 
 </div>
             </section>
@@ -198,6 +265,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

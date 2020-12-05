@@ -1,5 +1,5 @@
 ---
-title: "Mixed Effect Models"
+title: "Mixed Effect Models for fMRI"
 author: "Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -9,17 +9,15 @@ output:
 
 # INTRODUCTION
 
-Here I will tell you what this manual is all about
+This is a tutorial on how to conduct group-level statistical analyses of fMRI data using mixed effect linear models in R. It arose out of an extended [Evlab](https://evlab.mit.edu/) meeting and reflects our practices at the time. We expect to develop and improve upon them as time goes by.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+This tutorial assumes that you have already conducted subject-level analyses and extracted average response values for each brain region of interest (ROI). It assumes no previous knowledge of R and only a bit of stats (e.g. we will remind you the basics of linear regression but will assume that you know what p-values are for). Our goal is to: 
 
+1. Explain the basic logic behind linear mixed effect models.
 
+2. Show how to run them in R using the `lme4` package.
 
-TODO:
-- replace 0 intercepts in Idan's file
+3. Discuss how to interpret the results you get.
 
-- data likelihood (separate section)
-
+4. Highlight the major decision points you as a modeler will have to make along the way.
 
