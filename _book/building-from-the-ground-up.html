@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Building from the ground up | index</title>
+  <meta name="description" content="3 Building from the ground up | index" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Building from the ground up | index" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Building from the ground up | index" />
+  
+  
+  
+
+<meta name="author" content="Anna Ivanova" />
+
+
+<meta name="date" content="2020-11-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="building-your-first-mixed-model.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
+<li class="chapter" data-level="2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html"><i class="fa fa-check"></i><b>2</b> Building your first mixed model</a><ul>
+<li class="chapter" data-level="2.0.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#load-data"><i class="fa fa-check"></i><b>2.0.1</b> Load data</a></li>
+<li class="chapter" data-level="2.0.2" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#create-a-reduced-dataset-of-md-only-and-another-with-only-experiments-19-24"><i class="fa fa-check"></i><b>2.0.2</b> Create a reduced dataset of MD only, and another with only experiments 19-24</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html"><i class="fa fa-check"></i><b>3</b> Building from the ground up</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#now-lets-start-adding-the-random-effects-structure-first-participants-vary-in-neural-responsivity"><i class="fa fa-check"></i><b>3.0.1</b> Now let’s start adding the random effects structure: first, participants vary in neural responsivity</a></li>
+<li class="chapter" data-level="3.0.2" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#does-this-random-structure-add-to-explained-variance-compared-to-the-fixed-effect-only-model"><i class="fa fa-check"></i><b>3.0.2</b> Does this random structure add to explained variance compared to the fixed-effect-only model?</a></li>
+<li class="chapter" data-level="3.0.3" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#now-add-random-intercepts-by-experiment"><i class="fa fa-check"></i><b>3.0.3</b> Now add random intercepts by experiment</a></li>
+<li class="chapter" data-level="3.0.4" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#baseline-model-reminder"><i class="fa fa-check"></i><b>3.0.4</b> Baseline model reminder:</a></li>
+<li class="chapter" data-level="3.0.5" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditions-0.36225"><i class="fa fa-check"></i><b>3.0.5</b> ConditionS 0.36225</a></li>
+<li class="chapter" data-level="3.0.6" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditionw-0.47423"><i class="fa fa-check"></i><b>3.0.6</b> ConditionW 0.47423</a></li>
+<li class="chapter" data-level="3.0.7" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#alternatively-add-random-intercepts-by-region"><i class="fa fa-check"></i><b>3.0.7</b> Alternatively add random intercepts by region</a></li>
+<li class="chapter" data-level="3.0.8" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#baseline-model-reminder-1"><i class="fa fa-check"></i><b>3.0.8</b> Baseline model reminder:</a></li>
+<li class="chapter" data-level="3.0.9" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditions-0.36225-1"><i class="fa fa-check"></i><b>3.0.9</b> ConditionS 0.36225</a></li>
+<li class="chapter" data-level="3.0.10" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditionw-0.47423-1"><i class="fa fa-check"></i><b>3.0.10</b> ConditionW 0.47423</a></li>
+<li class="chapter" data-level="3.0.11" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#now-add-random-intercepts-by-both-experiment-and-region"><i class="fa fa-check"></i><b>3.0.11</b> Now add random intercepts by both experiment and region</a></li>
+<li class="chapter" data-level="3.0.12" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#baseline-model-reminder-2"><i class="fa fa-check"></i><b>3.0.12</b> Baseline model reminder:</a></li>
+<li class="chapter" data-level="3.0.13" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditions-0.36225-2"><i class="fa fa-check"></i><b>3.0.13</b> ConditionS 0.36225</a></li>
+<li class="chapter" data-level="3.0.14" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditionw-0.47423-2"><i class="fa fa-check"></i><b>3.0.14</b> ConditionW 0.47423</a></li>
+<li class="chapter" data-level="3.0.15" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#does-a-random-intercept-by-region-improve-the-model-beyond-one-with-participant-experiment"><i class="fa fa-check"></i><b>3.0.15</b> Does a random intercept by region improve the model beyond one with participant &amp; experiment?</a></li>
+<li class="chapter" data-level="3.0.16" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#does-a-random-intercept-by-experiment-improve-the-model-beyond-one-with-participant-region"><i class="fa fa-check"></i><b>3.0.16</b> Does a random intercept by experiment improve the model beyond one with participant &amp; region?</a></li>
+<li class="chapter" data-level="3.0.17" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#now-add-random-slopes"><i class="fa fa-check"></i><b>3.0.17</b> Now add random slopes</a></li>
+<li class="chapter" data-level="3.0.18" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#baseline-model-reminder-3"><i class="fa fa-check"></i><b>3.0.18</b> Baseline model reminder:</a></li>
+<li class="chapter" data-level="3.0.19" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditions-0.36225-3"><i class="fa fa-check"></i><b>3.0.19</b> ConditionS 0.36225</a></li>
+<li class="chapter" data-level="3.0.20" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#conditionw-0.47423-3"><i class="fa fa-check"></i><b>3.0.20</b> ConditionW 0.47423</a></li>
+<li class="chapter" data-level="3.0.21" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#do-random-slopes-help-beyond-random-intercepts"><i class="fa fa-check"></i><b>3.0.21</b> Do random slopes help beyond random intercepts?</a></li>
+<li class="chapter" data-level="3.0.22" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#we-also-have-hemisphere-as-a-variable-in-our-model"><i class="fa fa-check"></i><b>3.0.22</b> We also have hemisphere as a variable in our model</a></li>
+<li class="chapter" data-level="3.0.23" data-path="building-from-the-ground-up.html"><a href="building-from-the-ground-up.html#note-that-below-its-not-included-in-the-random-structure-although-it-could-should-be"><i class="fa fa-check"></i><b>3.0.23</b> Note that below it’s not included in the random structure, although it could / should be</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">index</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="building-from-the-ground-up" class="section level1">
+<h1><span class="header-section-number">3</span> Building from the ground up</h1>
+<p>Let’s start with the simplest linear model: only an intercept.
+This looks like:
+<span class="math display" id="eq:intercept">\[\begin{equation}
+y = \beta + \epsilon
+\tag{3.1}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\beta\)</span> is the baseline response, and <span class="math inline">\(\epsilon\)</span> is residual error. Essentially, we’re predicting the same number for every single measurement. In R syntax, we say that <span class="math inline">\(y\)</span> is proportional to some value (and estimate the coefficients that make this proportion work out). In this case, <span class="math inline">\(y\)</span> is proportional to any constant, e.g. 1:</p>
+<p><span class="math display" id="eq:intercept1">\[\begin{equation}
+y \propto 1
+\tag{3.2}
+\end{equation}\]</span></p>
+<p>Here’s what it looks like in code:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># specify the model</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">m.lin.noCond =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co"># show the result</span></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="kw">summary</span>(m.lin.noCond);</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ 1, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2640 -0.4187 -0.0466  0.3720  3.6304 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.41824    0.01044   40.08   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.717 on 4719 degrees of freedom</code></pre>
+<p>Let’s add a single fixed predictor (still no random structure): condition</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">m.lin =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span>Condition, <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">summary</span>(m.lin)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ Condition, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2080 -0.4233 -0.0426  0.3806  3.5744 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.36225    0.01471  24.618  &lt; 2e-16 ***
+## ConditionW   0.11198    0.02081   5.381 7.77e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7148 on 4718 degrees of freedom
+## Multiple R-squared:  0.0061, Adjusted R-squared:  0.005889 
+## F-statistic: 28.95 on 1 and 4718 DF,  p-value: 7.77e-08</code></pre>
+<p>Does the model with condition explain more variance than the intercept-only one?</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">anova</span>(m.lin.noCond, m.lin)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: Effect_Size ~ 1
+## Model 2: Effect_Size ~ Condition
+##   Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)    
+## 1   4719 2425.7                                 
+## 2   4718 2410.9  1    14.796 28.954 7.77e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>We do not need to explicitly specify an intercept: a model with +1 is the same as a model without it</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">m.lin.int =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition, <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">summary</span>(m.lin.int)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ 1 + Condition, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2080 -0.4233 -0.0426  0.3806  3.5744 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.36225    0.01471  24.618  &lt; 2e-16 ***
+## ConditionW   0.11198    0.02081   5.381 7.77e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7148 on 4718 degrees of freedom
+## Multiple R-squared:  0.0061, Adjusted R-squared:  0.005889 
+## F-statistic: 28.95 on 1 and 4718 DF,  p-value: 7.77e-08</code></pre>
+<p>We can explicitly supress the intercept. The resulting model is the same in terms of its predicted y values, but the coefficients and their interpretation are different</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">m.lin.noInt =<span class="st"> </span><span class="kw">lm</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition, <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">summary</span>(m.lin.noInt)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Effect_Size ~ 0 + Condition, data = data.md.red)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2080 -0.4233 -0.0426  0.3806  3.5744 
+## 
+## Coefficients:
+##            Estimate Std. Error t value Pr(&gt;|t|)    
+## ConditionS  0.36225    0.01471   24.62   &lt;2e-16 ***
+## ConditionW  0.47423    0.01471   32.23   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7148 on 4718 degrees of freedom
+## Multiple R-squared:  0.2585, Adjusted R-squared:  0.2582 
+## F-statistic: 822.4 on 2 and 4718 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div id="now-lets-start-adding-the-random-effects-structure-first-participants-vary-in-neural-responsivity" class="section level3">
+<h3><span class="header-section-number">3.0.1</span> Now let’s start adding the random effects structure: first, participants vary in neural responsivity</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">m.ri1 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">summary</span>(m.ri1)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 7738
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.4791 -0.5633 -0.0709  0.4804  5.7657 
+## 
+## Random effects:
+##  Groups    Name        Variance Std.Dev.
+##  SubjectID (Intercept) 0.2387   0.4886  
+##  Residual              0.2759   0.5252  
+## Number of obs: 4720, groups:  SubjectID, 115
+## 
+## Fixed effects:
+##             Estimate Std. Error        df t value Pr(&gt;|t|)    
+## ConditionS   0.35872    0.04683 120.30135    7.66 5.23e-12 ***
+## ConditionW   0.47069    0.04683 120.30135   10.05  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnS
+## ConditionW 0.947</code></pre>
+</div>
+<div id="does-this-random-structure-add-to-explained-variance-compared-to-the-fixed-effect-only-model" class="section level3">
+<h3><span class="header-section-number">3.0.2</span> Does this random structure add to explained variance compared to the fixed-effect-only model?</h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">m.noR =<span class="st"> </span>m.lin.noInt;</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">anova</span>(m.ri1, m.noR)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.noR: Effect_Size ~ 0 + Condition
+## m.ri1: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+##       Df     AIC   BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.noR  3 10229.9 10249 -5111.9  10223.9                             
+## m.ri1  4  7735.1  7761 -3863.6   7727.1 2496.7      1  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="now-add-random-intercepts-by-experiment" class="section level3">
+<h3><span class="header-section-number">3.0.3</span> Now add random intercepts by experiment</h3>
+</div>
+<div id="baseline-model-reminder" class="section level3">
+<h3><span class="header-section-number">3.0.4</span> Baseline model reminder:</h3>
+</div>
+<div id="conditions-0.36225" class="section level3">
+<h3><span class="header-section-number">3.0.5</span> ConditionS 0.36225</h3>
+</div>
+<div id="conditionw-0.47423" class="section level3">
+<h3><span class="header-section-number">3.0.6</span> ConditionW 0.47423</h3>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">m.ri2 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">summary</span>(m.ri2)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 7709.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.4973 -0.5635 -0.0702  0.4803  5.7706 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev.
+##  SubjectID  (Intercept) 0.19666  0.4435  
+##  Experiment (Intercept) 0.03391  0.1841  
+##  Residual               0.27495  0.5244  
+## Number of obs: 4720, groups:  SubjectID, 115; Experiment, 6
+## 
+## Fixed effects:
+##            Estimate Std. Error     df t value Pr(&gt;|t|)   
+## ConditionS   0.3446     0.0868 6.0453    3.97  0.00726 **
+## ConditionW   0.4566     0.0868 6.0453    5.26  0.00186 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnS
+## ConditionW 0.985</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">anova</span>(m.ri1, m.ri2)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri1: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+## m.ri2: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri1  4 7735.1 7761.0 -3863.6   7727.1                             
+## m.ri2  5 7709.9 7742.2 -3850.0   7699.9 27.236      1  1.801e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="alternatively-add-random-intercepts-by-region" class="section level3">
+<h3><span class="header-section-number">3.0.7</span> Alternatively add random intercepts by region</h3>
+</div>
+<div id="baseline-model-reminder-1" class="section level3">
+<h3><span class="header-section-number">3.0.8</span> Baseline model reminder:</h3>
+</div>
+<div id="conditions-0.36225-1" class="section level3">
+<h3><span class="header-section-number">3.0.9</span> ConditionS 0.36225</h3>
+</div>
+<div id="conditionw-0.47423-1" class="section level3">
+<h3><span class="header-section-number">3.0.10</span> ConditionW 0.47423</h3>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">m.ri3 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">summary</span>(m.ri3)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6956.2
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.2660 -0.5955 -0.0606  0.5189  5.9541 
+## 
+## Random effects:
+##  Groups    Name        Variance Std.Dev.
+##  SubjectID (Intercept) 0.23985  0.4897  
+##  Region    (Intercept) 0.04808  0.2193  
+##  Residual              0.22905  0.4786  
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20
+## 
+## Fixed effects:
+##            Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionS  0.35871    0.06773 59.02143   5.296 1.83e-06 ***
+## ConditionW  0.47069    0.06773 59.02143   6.950 3.29e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnS
+## ConditionW 0.979</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">anova</span>(m.ri1, m.ri3)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri1: Effect_Size ~ 0 + Condition + (1 | SubjectID)
+## m.ri3: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri1  4 7735.1 7761.0 -3863.6   7727.1                             
+## m.ri3  5 6955.9 6988.2 -3473.0   6945.9 781.24      1  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="now-add-random-intercepts-by-both-experiment-and-region" class="section level3">
+<h3><span class="header-section-number">3.0.11</span> Now add random intercepts by both experiment and region</h3>
+</div>
+<div id="baseline-model-reminder-2" class="section level3">
+<h3><span class="header-section-number">3.0.12</span> Baseline model reminder:</h3>
+</div>
+<div id="conditions-0.36225-2" class="section level3">
+<h3><span class="header-section-number">3.0.13</span> ConditionS 0.36225</h3>
+</div>
+<div id="conditionw-0.47423-2" class="section level3">
+<h3><span class="header-section-number">3.0.14</span> ConditionW 0.47423</h3>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">m.ri4 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">summary</span>(m.ri4)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) +  
+##     (1 | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6924.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.2849 -0.5986 -0.0618  0.5179  5.9728 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev.
+##  SubjectID  (Intercept) 0.19805  0.4450  
+##  Region     (Intercept) 0.04806  0.2192  
+##  Experiment (Intercept) 0.03336  0.1827  
+##  Residual               0.22811  0.4776  
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20; Experiment, 6
+## 
+## Fixed effects:
+##            Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionS  0.34492    0.09918 10.24872   3.478  0.00573 ** 
+## ConditionW  0.45689    0.09918 10.24872   4.607  0.00091 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnS
+## ConditionW 0.990</code></pre>
+</div>
+<div id="does-a-random-intercept-by-region-improve-the-model-beyond-one-with-participant-experiment" class="section level3">
+<h3><span class="header-section-number">3.0.15</span> Does a random intercept by region improve the model beyond one with participant &amp; experiment?</h3>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">anova</span>(m.ri2, m.ri4)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri2: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment)
+## m.ri4: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + 
+## m.ri4:     (1 | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri2  5 7709.9 7742.2 -3850.0   7699.9                             
+## m.ri4  6 6927.0 6965.8 -3457.5   6915.0 784.88      1  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="does-a-random-intercept-by-experiment-improve-the-model-beyond-one-with-participant-region" class="section level3">
+<h3><span class="header-section-number">3.0.16</span> Does a random intercept by experiment improve the model beyond one with participant &amp; region?</h3>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">anova</span>(m.ri3, m.ri4)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri3: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Region)
+## m.ri4: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + 
+## m.ri4:     (1 | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri3  5 6955.9 6988.2 -3473.0   6945.9                             
+## m.ri4  6 6927.0 6965.8 -3457.5   6915.0 30.874      1  2.754e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="now-add-random-slopes" class="section level3">
+<h3><span class="header-section-number">3.0.17</span> Now add random slopes</h3>
+</div>
+<div id="baseline-model-reminder-3" class="section level3">
+<h3><span class="header-section-number">3.0.18</span> Baseline model reminder:</h3>
+</div>
+<div id="conditions-0.36225-3" class="section level3">
+<h3><span class="header-section-number">3.0.19</span> ConditionS 0.36225</h3>
+</div>
+<div id="conditionw-0.47423-3" class="section level3">
+<h3><span class="header-section-number">3.0.20</span> ConditionW 0.47423</h3>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">m.ris =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="kw">summary</span>(m.ris)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 +  
+##     Condition | Experiment) + (1 + Condition | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6527
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.6493 -0.5807 -0.0683  0.5089  5.9141 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev. Corr 
+##  SubjectID  (Intercept) 0.220621 0.4697        
+##             ConditionW  0.101224 0.3182   -0.31
+##  Region     (Intercept) 0.065250 0.2554        
+##             ConditionW  0.006674 0.0817   -0.90
+##  Experiment (Intercept) 0.039682 0.1992        
+##             ConditionW  0.005285 0.0727   -0.73
+##  Residual               0.199428 0.4466        
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20; Experiment, 6
+## 
+## Fixed effects:
+##            Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionS  0.33841    0.10928 11.06009   3.097 0.010103 *  
+## ConditionW  0.45783    0.08839  8.53860   5.180 0.000686 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            CndtnS
+## ConditionW 0.904</code></pre>
+</div>
+<div id="do-random-slopes-help-beyond-random-intercepts" class="section level3">
+<h3><span class="header-section-number">3.0.21</span> Do random slopes help beyond random intercepts?</h3>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">anova</span>(m.ris, m.ri4)</a></code></pre></div>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<pre><code>## Data: data.md.red
+## Models:
+## m.ri4: Effect_Size ~ 0 + Condition + (1 | SubjectID) + (1 | Experiment) + 
+## m.ri4:     (1 | Region)
+## m.ris: Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 + 
+## m.ris:     Condition | Experiment) + (1 + Condition | Region)
+##       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
+## m.ri4  6 6927.0 6965.8 -3457.5   6915.0                             
+## m.ris 12 6543.5 6621.0 -3259.8   6519.5 395.53      6  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="we-also-have-hemisphere-as-a-variable-in-our-model" class="section level3">
+<h3><span class="header-section-number">3.0.22</span> We also have hemisphere as a variable in our model</h3>
+</div>
+<div id="note-that-below-its-not-included-in-the-random-structure-although-it-could-should-be" class="section level3">
+<h3><span class="header-section-number">3.0.23</span> Note that below it’s not included in the random structure, although it could / should be</h3>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">m.ris2 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">*</span>Hemisphere <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red);</a></code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
+## control$checkConv, : Model failed to converge with max|grad| = 0.013819
+## (tol = 0.002, component 1)</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">summary</span>(m.ris2)</a></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## Effect_Size ~ 0 + Condition * Hemisphere + (1 + Condition | SubjectID) +  
+##     (1 + Condition | Experiment) + (1 + Condition | Region)
+##    Data: data.md.red
+## 
+## REML criterion at convergence: 6530.9
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.6824 -0.5788 -0.0650  0.5060  5.9356 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev. Corr 
+##  SubjectID  (Intercept) 0.220684 0.46977       
+##             ConditionW  0.101216 0.31814  -0.31
+##  Region     (Intercept) 0.061563 0.24812       
+##             ConditionW  0.005200 0.07211  -0.89
+##  Experiment (Intercept) 0.039369 0.19842       
+##             ConditionW  0.005277 0.07264  -0.73
+##  Residual               0.199428 0.44657       
+## Number of obs: 4720, groups:  SubjectID, 115; Region, 20; Experiment, 6
+## 
+## Fixed effects:
+##                        Estimate Std. Error       df t value Pr(&gt;|t|)    
+## ConditionS              0.42000    0.12194 15.51788   3.444 0.003463 ** 
+## ConditionW              0.49671    0.09812 12.20340   5.062 0.000265 ***
+## HemisphereR            -0.16318    0.11247 17.99924  -1.451 0.164039    
+## ConditionW:HemisphereR  0.08544    0.04143 17.99452   2.063 0.053894 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             CndtnS CndtnW HmsphR
+## ConditionW   0.913              
+## HemisphereR -0.461 -0.413       
+## CndtnW:HmsR  0.350  0.223 -0.758
+## convergence code: 0
+## Model failed to converge with max|grad| = 0.013819 (tol = 0.002, component 1)</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="building-your-first-mixed-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
