@@ -1,1 +1,3 @@
 output_dir: "docs"
+
+include: "docs/_main_files/"
