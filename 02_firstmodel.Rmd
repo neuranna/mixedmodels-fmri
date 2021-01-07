@@ -48,7 +48,7 @@ This looks like:
 (\#eq:intercept)
 \end{equation}
 
-wherу $\vec{y}$ is a vector with the measurements we want to model (in our example, Effect_Size), $\beta_0$ is the baseline response, and $\epsilon$ is residual error. The length of the ones vector is the same as the number of observations in $\vec{y}$. Essentially, this model is predicting the same number for every single measurement. 
+wherу $\vec{y}$ is a vector with the measurements we want to model (in our example, Effect_Size), $\beta_0$ is the intercept, and $\epsilon$ is residual error. The length of the ones vector is the same as the number of observations in $\vec{y}$. Essentially, this model is predicting the same number for every single measurement. 
 
 In R syntax, we can say that $\vec{y}$ is proportional to some value (and estimate the coefficients that make this proportion work out). In this case, we assume that each value in $\vec{y}$ is a constant and therefore proportional to 1:
 
@@ -66,9 +66,13 @@ m.lin.noCond = lm(Effect_Size ~ 1, data = data.md.red)
 summary(m.lin.noCond)
 ```
 
+The most interesting section in this summary is the "coefficients" section, which shows us the estimates for the fixed effects. Here, it's just the intercept, which has the estimated value of 0.418 and is significantly greater than 0 (p < .001).
+
+What does this number mean in practice? This is just the average response level across all our datapoints. That's what happens when you don't add any structure to your model - the average is the best estimate.
+
 ## A model with 1 fixed effect
 
-Let's add a single fixed predictor. Now our effect size $\vec{y}$ depends not only on the baseline response, but also on the experimental condition. The general formula for such a design looks like this:
+Let's add a single fixed predictor. Now our effect size $\vec{y}$ depends not only on the mean response, but also on the experimental condition. The general formula for such a design looks like this:
 
 \begin{equation}
 y = X * \vec{\beta} + \epsilon
@@ -94,11 +98,11 @@ X = \begin{bmatrix}
 (\#eq:designmatrix1)
 \end{equation}
 
-where the first column is our intercept ("baseline" neural activity) and the second column has 1  whenever that row comes from the Sentence condition and 0 otherwise. 
+where the first column is our intercept and the second column has 1  whenever that row comes from the Sentence condition and 0 otherwise. 
 
 Where is the Word condition?
 
-Remember that we said earlier that the first level of the factor variable gets treated as the baseline. So here, the response to words is our baseline, and the response to sentences is the  stuff you would get "on top" of the word-induced activation  - in other words, the magnitude of  the S>N contrast. The intercept, in turn, would give you the average magnitude of the W>baseline contrast.
+Turns out that, by default, the first level of a factor variable gets treated as the reference level ($\beta_{0}$). So here, the response to words is our intercept, and the response to sentences is the stuff you would get "on top" of the word-induced activation  - in other words, the magnitude of the S>N contrast. The intercept, in turn, would give you the average magnitude of the W>0 contrast.
 
 This might sound a bit counterintuitive, but imagine if we tried to specify the intercept, word and sentence as 3 separate effects to estimate. Then we could still compare sentences to words, but would have trouble distinguishing the words from the intercept. If our observed response to words is 1.2, does the intercept contribute 0 and words 1.2? intercept 1.2 and words 0? intercept 0.6 and words 0.6? There is an infinite number of combinations.
 
@@ -135,8 +139,11 @@ Does the model with Condition as a fixed effect explain more variance than the i
 
 NOTE: the likelihood ratio (LR) test only works for nested models, i.e. models that have the same structure except that one model has some additional terms. The LR test would then tell us whether these terms are worth adding - in formal words, whether they significantly improve model fit. If you want to compare non-nested models, you can use other methods, such as [AIC](https://en.wikipedia.org/wiki/Akaike_information_criterion).
 ```{r}
-anova(m.lin.noCond, m.lin)
+# for models with random effects, you can just use "anova(m1, m2)" to get the same result
+lme4:::anova.merMod(m.lin.noCond, m.lin)
 ```
+
+We see that the models are significantly different from each other ($X^2$(1)=28.9, p<.001) and that the second model explains more variance: under ```m.lin```, the data have higher ("less negative") log likelihood. Thus, we can conclude that the second model provides a better fit to the data.
 
 ## Adding random intercepts
 ### Random intercept #1: participant
@@ -181,6 +188,7 @@ The previous models did not have any random terms, and so we evaluated it using 
 ```{r}
 # I want to evaluate the model by maximum likelihood, not restricted maximum likelihood (REML),
 # so I'm setting REML to FALSE
+# (this will allow us to use the "anova" function later)
 m.ri1 = lmer(Effect_Size ~ Condition + (1 | SubjectID), data = data.md.red,
              REML=FALSE);
 summary(m.ri1)
@@ -228,7 +236,7 @@ It did! We have a significant difference between the models, with model 2 having
 
 ### Random intercept #3: region 
 
-Finally, we know that different brain regions have different levels of BOLD activity: regions close to large vessels will have strong responses to everything.
+Finally, we know that different brain regions have different levels of BOLD activity: for example, regions close to large vessels will have strong responses to everything.
 
 ```{r}
 m.ri3 = lmer(Effect_Size ~ Condition + (1 | SubjectID) + (1 | Experiment) + (1 | Region), 
@@ -283,13 +291,13 @@ anova(m.ris, m.ri3)
 Note that here I decided to only keep the random slope by participant, and it happened to actually be helpful. If possible, you should be more systematic when deciding on model structure. For details, see section \@ref(convergence-simplify).
 
 
-## Fixed effects can be more complicated too
+## Interactions, or Fixed effects can be complicated too
 
 I will leave you with a final twist on our model.
 
 So far we've only looked at Condition as our fixed effect: our goal was to get to random effects as soon as possible. But there is another important source of variation in our data - Hemisphere.
 
-Since there are only two hemispheres, there is no reason to include it as a fixed effect (in this case, we'd have to imagine left and right hemispheres as samples from an infinite population of hemispheres...). So this is going to be our second fixed effect.
+Since there are only two hemispheres, there is no reason to include it as a random effect (in this case, we'd have to imagine left and right hemispheres as samples from an infinite population of hemispheres...). So this is going to be our second fixed effect.
 
 ```{r}
 m.ris2 = lmer(Effect_Size ~ Condition + Hemisphere + (1 + Condition | SubjectID) + (1 | Experiment) + (1 | Region), data = data.md.red, REML=FALSE);
@@ -320,7 +328,7 @@ Yup, we explained additional variance.
 ## Summary
 
 - Fixed effects in a linear mixed effect model act just like regular regression terms.
-- For categorical variables, the first level of a fixed effect variable acts like a baseline (unless you set the intercept to 0).
+- For categorical variables, the first level of a fixed effect variable acts as the intercept (unless you explicitly set the intercept to 0).
 - Random effects are not simple regression terms; they are random variables. As such, you don't estimate a value for each level (e.g. mean activation for each participant) but instead find the variance around the mean. For instance, you might estimate how much each participant's data are likely to deviate from the mean value.
-- You can estimate random intercepts (how much does a random effect influence the baseline) and random slopes (how much does a random effect modulate a fixed effect)
+- You can estimate random intercepts (how much does a random effect influence the intercept) and random slopes (how much does a random effect modulate a fixed effect)
 - You can decide whether adding a particular term improves model fit by conducting a likelihood ratio test. 

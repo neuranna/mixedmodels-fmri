@@ -24,7 +24,7 @@
 <meta name="author" content="Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain" />
 
 
-<meta name="date" content="2020-12-04" />
+<meta name="date" content="2021-01-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
 <li class="chapter" data-level="2" data-path="meet-the-data.html"><a href="meet-the-data.html"><i class="fa fa-check"></i><b>2</b> Meet the data</a><ul>
 <li class="chapter" data-level="2.1" data-path="meet-the-data.html"><a href="meet-the-data.html#setting-up-the-environment"><i class="fa fa-check"></i><b>2.1</b> Setting up the environment</a></li>
-<li class="chapter" data-level="2.2" data-path="meet-the-data.html"><a href="meet-the-data.html#the-data"><i class="fa fa-check"></i><b>2.2</b> The data</a></li>
+<li class="chapter" data-level="2.2" data-path="meet-the-data.html"><a href="meet-the-data.html#getting-the-data"><i class="fa fa-check"></i><b>2.2</b> Getting the data</a></li>
+<li class="chapter" data-level="2.3" data-path="meet-the-data.html"><a href="meet-the-data.html#exploring-the-data"><i class="fa fa-check"></i><b>2.3</b> Exploring the data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html"><i class="fa fa-check"></i><b>3</b> Building your first mixed model</a><ul>
 <li class="chapter" data-level="3.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#building-from-the-ground-up"><i class="fa fa-check"></i><b>3.1</b> Building from the ground up</a></li>
@@ -144,7 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#random-intercept-3-region"><i class="fa fa-check"></i><b>3.4.3</b> Random intercept #3: region</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#randomslopes"><i class="fa fa-check"></i><b>3.5</b> It gets better - random slopes</a></li>
-<li class="chapter" data-level="3.6" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#fixed-effects-can-be-more-complicated-too"><i class="fa fa-check"></i><b>3.6</b> Fixed effects can be more complicated too</a></li>
+<li class="chapter" data-level="3.6" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#interactions-or-fixed-effects-can-be-complicated-too"><i class="fa fa-check"></i><b>3.6</b> Interactions, or Fixed effects can be complicated too</a></li>
 <li class="chapter" data-level="3.7" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#summary"><i class="fa fa-check"></i><b>3.7</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html"><i class="fa fa-check"></i><b>4</b> The devil’s in the details</a><ul>
@@ -201,10 +202,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="method-1-read-the-p-values-directly-from-model-summary" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Method 1: Read the p-values directly from model summary</h3>
 <p>Remember a term we had before, <code>ConditionS</code>? It is the estimate of the average <code>Effect_Size</code> for the Sentences &gt; Words contrast. How do we know whether this effect is significant?</p>
-<p><code>lmerTest</code> allows us to just get a p value associated with each (thanks to this package, we get an extra column in your output for every fixed effect we estimate)</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">m1 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">          <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="kw">summary</span>(m1)</a></code></pre></div>
+<p><code>lmerTest</code> allows us to just get a p value associated with each fixed effect. Because we have this package loaded, now every time we run <code>lmer</code>, we get an extra column in the “Fixed effects” section called <code>Pr(&gt;|t|)</code>. This column contains p-values (here, probabilities that a given effect is 0).</p>
+<p>Let’s fit a model with a fixed effect of Condition and three random intercepts: participant, experiment, brain region. Here is how we can describe this analysis in a paper:</p>
+<blockquote>
+<p>To analyze MD network responses, we fitted a mixed-effect linear model with Condition as a fixed effect and Participant, Experiment and Brain Region as random intercepts.</p>
+</blockquote>
+<p>Here we go:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">m1 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">          <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">summary</span>(m1)</a></code></pre></div>
 <pre><code>## Linear mixed model fit by maximum likelihood . t-tests use
 ##   Satterthwaite&#39;s method [lmerModLmerTest]
 ## Formula: 
@@ -237,10 +243,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Correlation of Fixed Effects:
 ##            (Intr)
 ## ConditionS -0.073</code></pre>
-<p>Look at Fixed effects -&gt; ConditionS -&gt; value in the Pr(&gt;|t|) column is the p value of the “S” contrast, which in our case is Sentence&gt;Word.</p>
+<p>Look at Fixed effects -&gt; ConditionS -&gt; value in the Pr(&gt;|t|) column. This is the p value of the “S” contrast, which in our case is Sentence&gt;Word.</p>
 <p>Here’s how you can report this effect:</p>
 <blockquote>
-<p>The responses in the multiple demand (MD) network during sentence reading were lower than responses during word reading (beta=-0.11, SE=0.01, p&lt;.001).</p>
+<p>The MD network responses during sentence reading were lower than responses during word reading (beta=-0.11, SE=0.01, p&lt;.001).</p>
 </blockquote>
 <p>Note that lmerTest only estimates p values for fixed effects, so if you want to estimate the significance of a random effect, you have to use Method 2.</p>
 </div>
@@ -250,12 +256,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>Create a “null” model where the predictor of interest is missing</li>
 </ol>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">m1.null =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
-<a class="sourceLine" id="cb58-2" data-line-number="2">          <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">m1.null =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">          <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use the likelihood ratio test (the <code>anova()</code> command) to find out if the model with more parameters fits the data better.</li>
 </ol>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">anova</span>(m1.null, m1)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">anova</span>(m1.null, m1)</a></code></pre></div>
 <pre><code>## Data: data.md.red
 ## Models:
 ## m1.null: Effect_Size ~ 1 + Condition + (1 | SubjectID) + (1 | Experiment)
@@ -269,13 +275,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This tells you that Region matters but it doesn’t tell you anything about which Region has higher or lower responses compared to the rest.</p>
 <p>Here’s how you can describe this result:</p>
 <blockquote>
-<p>The overall response magnitude varied substantially by region (<span class="math inline">\(\sigma\)</span>=0.28). The likelihood ratio test showed that adding the region intercept term significantly improved model fit (<span class="math inline">\(X^2\)</span>=784.9, p&lt;.001).</p>
+<p>The overall response magnitude varied substantially by region (<span class="math inline">\(\sigma\)</span>=0.28). The likelihood ratio test showed that adding the region intercept term significantly improved model fit (<span class="math inline">\(X^2\)</span>(1)=784.9, p&lt;.001).</p>
 </blockquote>
 </div>
 <div id="method-3-pairwise-tests" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Method 3: pairwise tests</h3>
 <p>If you just want the mean estimates for each condition and you want to compare them to 0, you can use <code>ls_means()</code> from <code>lmerTest</code></p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">ls_means</span>(m1)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ls_means</span>(m1)</a></code></pre></div>
 <pre><code>## Least Squares Means table:
 ## 
 ##            Estimate Std. Error   df t value    lower    upper  Pr(&gt;|t|)
@@ -294,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The MD network’s response to word reading was significantly above 0 (beta=0.41, SE=0.06, p&lt;.001), and so was the response to sentence reading (beta=0.27, SE = 0.09, p=.006).</p>
 </blockquote>
 <p>You can also use the same function to run a bunch of pairwise comparisons. In the current model, it was reasonably easy to read the effects right off the coefficients but when there are more than 2 levels per predictor this can get trickier so tools like this can be handy.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">ls_means</span>(m1, <span class="dt">pairwise =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">ls_means</span>(m1, <span class="dt">pairwise =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Least Squares Means table:
 ## 
 ##                         Estimate Std. Error     df t value    lower
@@ -317,33 +323,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="intro-to-contrast-coding" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Intro to contrast coding</h3>
 <p>Let’s take another look at the fixed effects in our model.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">m1 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
-<a class="sourceLine" id="cb65-2" data-line-number="2">          <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m1)) </a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">m1 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">          <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m1)) </a></code></pre></div>
 <pre><code>##               Estimate Std. Error         df   t value     Pr(&gt;|t|)
 ## (Intercept)  0.4566623 0.09492157   12.84781  4.810944 3.514693e-04
 ## ConditionS  -0.1119761 0.01390210 4584.90113 -8.054616 1.007830e-15</code></pre>
 <p>As we’ve mentioned before, the first level (W) becomes the intercept, and all other levels are contrasted against it. But why is that?</p>
 <p>Well let’s see how R is treating these levels. Ultimately, in order to fit the model, R has to somehow convert them into numbers. Using the <code>contrasts()</code> function, you can see what those numbers are.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">contrasts</span>(data.md.red<span class="op">$</span>Condition)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">contrasts</span>(data.md.red<span class="op">$</span>Condition)</a></code></pre></div>
 <pre><code>##   S
 ## W 0
 ## S 1</code></pre>
-<p>This is called <strong>dummy coding</strong> - but there’s nothing dumb about it! It’s just the default in R. Another term for it is “treatment coding”</p>
+<p>This is called <strong>dummy coding</strong> - but there’s nothing dumb about it! It’s just the default in R. Another term for it is “treatment coding”.</p>
+<p>In the paper, you could write:</p>
+<blockquote>
+<p>In our model, Condition was a categorical fixed effect, with Words serving as the reference level.</p>
+</blockquote>
+<p>You can even explicitly say that you used dummy coding with Words as the reference level.</p>
 <p>But what if we don’t want to treat the word reading condition in this privileged way? Turns out, you can set the contrasts manually:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">data.md.red.sum =<span class="st"> </span><span class="kw">data.frame</span>(data.md.red)   <span class="co"># make a copy of the data</span></a>
-<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Condition) =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>)    <span class="co"># change the contrast</span></a>
-<a class="sourceLine" id="cb69-3" data-line-number="3"><span class="kw">colnames</span>(<span class="kw">attr</span>(data.md.red.sum<span class="op">$</span>Condition, <span class="st">&quot;contrasts&quot;</span>)) =<span class="st"> &quot;S&gt;W&quot;</span>     <span class="co"># name the contrast (optional)</span></a>
-<a class="sourceLine" id="cb69-4" data-line-number="4"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Condition)     </a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">data.md.red.sum =<span class="st"> </span><span class="kw">data.frame</span>(data.md.red)   <span class="co"># make a copy of the data</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Condition) =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>)    <span class="co"># change the contrast</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">colnames</span>(<span class="kw">attr</span>(data.md.red.sum<span class="op">$</span>Condition, <span class="st">&quot;contrasts&quot;</span>)) =<span class="st"> &quot;S&gt;W&quot;</span>     <span class="co"># name the contrast (optional)</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Condition)     </a></code></pre></div>
 <pre><code>##    S&gt;W
 ## W -0.5
 ## S  0.5</code></pre>
 <p>Ok, looks confusing. What did we just do?</p>
 <p>The difference between S and W remains 1. What has changed is where we place 0 (aka, the intercept). In dummy coding, 0 was aligned with the W condition. Now, it is <em>in between</em> W and S. Thus, our intercept will now reflect the average response across both W and S conditions.</p>
-<p>This way of setting up contrasts is called <strong>sum coding</strong> (or deviation coding).</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">m1.sum =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
-<a class="sourceLine" id="cb71-2" data-line-number="2">          <span class="dt">data =</span> data.md.red.sum, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m1.sum)) </a></code></pre></div>
+<p>This way of setting up contrasts is called <strong>sum coding</strong> (or deviation coding). You can report it as follows:</p>
+<blockquote>
+<p>In our model, Condition was a categorical fixed effect (with a sum contrast coding scheme).</p>
+</blockquote>
+<p>How does this influence the results?</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">m1.sum =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">          <span class="dt">data =</span> data.md.red.sum, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m1.sum)) </a></code></pre></div>
 <pre><code>##                Estimate Std. Error         df   t value     Pr(&gt;|t|)
 ## (Intercept)   0.4006743 0.09466671   12.71039  4.232473 1.027008e-03
 ## ConditionS&gt;W -0.1119761 0.01390210 4584.90113 -8.054616 1.007830e-15</code></pre>
@@ -358,15 +373,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.2.2</span> Applications to interactions</h3>
 <p>At the end of last chapter, we introduced a model with an interaction between 2 fixed effects - Condition and Hemisphere. Let’s take a closer look at what exactly it tells us about our data.</p>
 <p>We’ll start with a quick plot to see what results we should be expecting</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">ggplot</span>(data.md.red)<span class="op">+</span></a>
-<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Hemisphere, <span class="dt">y=</span>Effect_Size, <span class="dt">fill=</span>Condition), </a>
-<a class="sourceLine" id="cb73-3" data-line-number="3">               <span class="dt">geom=</span><span class="st">&quot;col&quot;</span>, <span class="dt">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.8</span>))<span class="op">+</span></a>
-<a class="sourceLine" id="cb73-4" data-line-number="4"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Hemisphere, <span class="dt">y=</span>Effect_Size, <span class="dt">group=</span>Condition), </a>
-<a class="sourceLine" id="cb73-5" data-line-number="5">               <span class="dt">geom=</span><span class="st">&#39;errorbar&#39;</span>, <span class="dt">fun.data=</span><span class="st">&#39;mean_se&#39;</span>, <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.8</span>), <span class="dt">width=</span><span class="fl">0.2</span>)</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-197-1.png" width="672" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(data.md.red)<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Hemisphere, <span class="dt">y=</span>Effect_Size, <span class="dt">fill=</span>Condition), </a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">               <span class="dt">geom=</span><span class="st">&quot;col&quot;</span>, <span class="dt">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.8</span>))<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Hemisphere, <span class="dt">y=</span>Effect_Size, <span class="dt">group=</span>Condition), </a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">               <span class="dt">geom=</span><span class="st">&#39;errorbar&#39;</span>, <span class="dt">fun.data=</span><span class="st">&#39;mean_se&#39;</span>, <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.8</span>), <span class="dt">width=</span><span class="fl">0.2</span>)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Based on this plot, we would expect to see the main effect of condition (W&gt;S), maybe the main effect of hemisphere (L&gt;R), and likely an interaction between hemisphere and condition (the W&gt;S effect is larger in RH). Was that what we observed?</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">m2 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span>Condition<span class="op">*</span>Hemisphere <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>);</a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="kw">coef</span>(<span class="kw">summary</span>(m2))    <span class="co"># fixed</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">m2 =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span>Condition<span class="op">*</span>Hemisphere <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>);</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">coef</span>(<span class="kw">summary</span>(m2))    <span class="co"># fixed</span></a></code></pre></div>
 <pre><code>##                           Estimate Std. Error         df    t value
 ## (Intercept)             0.49408827 0.10613083   18.29735  4.6554643
 ## ConditionS             -0.06607851 0.03537294  153.88236 -1.8680525
@@ -378,28 +393,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## HemisphereR            0.4245326473
 ## ConditionS:HemisphereR 0.0010612211</code></pre>
 <p>The interaction between condition and hemisphere is indeed significant (beta=-0.08, SE=0.03, p=.001), but the effect of condition is not (beta=-0.07, SE=0.04, p=.064), and neither is the effect of hemisphere (beta=-0.08, SE=0.10, p=.424). Why is that?</p>
-<p>Our intuition doesn’t align with the model output because the hemisphere and condition effects here do not actually reflect the main effect of each factor. The reason why is because each fixed effect is evaluated with respect to the <em>intercept</em> of the other one.</p>
-<p>Remember, this is the dataset where we’re using the default dummy coding, so the intercept for condition is words and the intercept for hemisphere is left. As a result,</p>
+<p>Our intuition doesn’t align with the model output because the hemisphere and condition effects here do not actually reflect the main effect of each factor. The reason why is because each fixed effect is evaluated with respect to the <em>reference level</em> of the other one.</p>
+<p>Remember, this is the dataset where we’re using the default dummy coding, so the reference level for condition is words and the reference level for hemisphere is left. As a result,</p>
 <ul>
-<li><p>under ConditionW we have the <strong>simple effect</strong> of Condition: Words&gt;Sentences but only for the left hemisphere. And it’s indeed pretty small.</p></li>
+<li><p>under ConditionS we have the <strong>simple effect</strong> of Condition: Sentences&gt;Words but only for the left hemisphere. And it’s indeed pretty small.</p></li>
 <li><p>under HemisphereR we have the <strong>simple effect</strong> of Hemisphere: Right&gt;Left but only for words. Looking at the plot, we can verify that the hemisphere difference for words is indeed ~0.08 (as predicted by our beta value).</p></li>
 </ul>
-<p>In order to estimate the <strong>main effects</strong>, we want to use sum coding. Then, the intercept will reflect the average response for each factor across levels.</p>
+<p>In order to estimate the <strong>main effects</strong>, we want to use sum coding. Then, the reference level will be the average response across levels (as opposed to dummy coding, where only one level serves as the reference).</p>
 <p>We’ve already done this for condition:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Condition)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Condition)</a></code></pre></div>
 <pre><code>##    S&gt;W
 ## W -0.5
 ## S  0.5</code></pre>
 <p>Let’s do it for hemisphere too:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Hemisphere) =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="kw">colnames</span>(<span class="kw">attr</span>(data.md.red.sum<span class="op">$</span>Hemisphere, <span class="st">&quot;contrasts&quot;</span>)) =<span class="st"> &quot;R&gt;L&quot;</span> </a>
-<a class="sourceLine" id="cb78-3" data-line-number="3"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Hemisphere)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Hemisphere) =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">colnames</span>(<span class="kw">attr</span>(data.md.red.sum<span class="op">$</span>Hemisphere, <span class="st">&quot;contrasts&quot;</span>)) =<span class="st"> &quot;R&gt;L&quot;</span> </a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="kw">contrasts</span>(data.md.red.sum<span class="op">$</span>Hemisphere)</a></code></pre></div>
 <pre><code>##    R&gt;L
 ## L -0.5
 ## R  0.5</code></pre>
 <p>Now the effect of hemisphere will be estimated with respect to the <em>average</em> response for words and sentences, and the effect of condition will be estimated with respect to the <em>average</em> response across hemispheres.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">m2.sum =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span>Condition<span class="op">*</span>Hemisphere <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red.sum, <span class="dt">REML=</span><span class="ot">FALSE</span>);</a>
-<a class="sourceLine" id="cb80-2" data-line-number="2"><span class="kw">coef</span>(<span class="kw">summary</span>(m2.sum))    </a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">m2.sum =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span>Condition<span class="op">*</span>Hemisphere <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red.sum, <span class="dt">REML=</span><span class="ot">FALSE</span>);</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">coef</span>(<span class="kw">summary</span>(m2.sum))    </a></code></pre></div>
 <pre><code>##                               Estimate Std. Error         df   t value
 ## (Intercept)                 0.40082257 0.09337878   12.41336  4.292438
 ## ConditionS&gt;W               -0.10880025 0.03288109  114.96989 -3.308900
@@ -418,15 +433,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="convergence" class="section level2">
 <h2><span class="header-section-number">4.3</span> Convergence issues</h2>
 <p>Remember we got a warning in section <a href="building-your-first-mixed-model.html#randomslopes">3.5</a> saying that our model doesn’t converge? We’ll repeat that example here:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">m.ris =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">m.ris =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>);</a></code></pre></div>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
 ## control$checkConv, : Model failed to converge with max|grad| = 0.0352573
 ## (tol = 0.002, component 1)</code></pre>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">coef</span>(<span class="kw">summary</span>(m.ris))    <span class="co"># fixed</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">coef</span>(<span class="kw">summary</span>(m.ris))    <span class="co"># fixed</span></a></code></pre></div>
 <pre><code>##             Estimate Std. Error        df  t value     Pr(&gt;|t|)
 ## ConditionW 0.4547675 0.08210915  9.847007 5.538573 0.0002621747
 ## ConditionS 0.3378952 0.10445966 13.926610 3.234696 0.0060276813</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris)          <span class="co"># random</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris)          <span class="co"># random</span></a></code></pre></div>
 <pre><code>##  Groups     Name        Std.Dev. Corr  
 ##  SubjectID  (Intercept) 0.479932       
 ##             ConditionS  0.318837 -0.364
@@ -439,13 +454,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="solution-1-try-other-optimizers" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Solution 1: try other optimizers</h3>
 <p>We can use a different optimizer and/or explicitly specify the stopping criterion.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">m.ris.bobyqa =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb88-2" data-line-number="2">                <span class="dt">control =</span> <span class="kw">lmerControl</span>(<span class="dt">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>, <span class="dt">optCtrl=</span><span class="kw">list</span>(<span class="dt">maxfun=</span><span class="fl">2e5</span>)))</a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m.ris.bobyqa))    <span class="co"># fixed</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">m.ris.bobyqa =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">                <span class="dt">control =</span> <span class="kw">lmerControl</span>(<span class="dt">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>, <span class="dt">optCtrl=</span><span class="kw">list</span>(<span class="dt">maxfun=</span><span class="fl">2e5</span>)))</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m.ris.bobyqa))    <span class="co"># fixed</span></a></code></pre></div>
 <pre><code>##             Estimate Std. Error        df  t value     Pr(&gt;|t|)
 ## ConditionW 0.4544214 0.08190374  8.989032 5.548237 0.0003587971
 ## ConditionS 0.3378332 0.10455535 13.765356 3.231143 0.0061498913</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris.bobyqa)          <span class="co"># random</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris.bobyqa)          <span class="co"># random</span></a></code></pre></div>
 <pre><code>##  Groups     Name        Std.Dev. Corr  
 ##  SubjectID  (Intercept) 0.480476       
 ##             ConditionS  0.319156 -0.366
@@ -466,9 +481,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="solution-3-reml" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Solution 3: REML</h3>
 <p>In all the examples above, we fit our model using maximum likelihood. The default for <code>lmer</code> is actually <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">restricted maximum likelihood</a> (REML). Because it fits the data in stages, in some cases it might make it easier for the model to converge.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1">m.ris.reml =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb92-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb92-3" data-line-number="3"><span class="kw">summary</span>(m.ris.reml)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">m.ris.reml =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition<span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="kw">summary</span>(m.ris.reml)</a></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: Effect_Size ~ 0 + Condition + (1 + Condition | SubjectID) + (1 +  
@@ -510,12 +525,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>THINK: how many parameters does <code>m.ris</code> need to estimate? (Hint: don’t forget about the correlations between random effects)</p>
 <p>There is no one answer to how many samples are sufficient, but if it’s 2 per parameter, it’s too low (e.g. we’re estimating the participant by condition slope, and we only have estimates for 2 ROIs, it’s hard to decide how much variance should go into ROI terms and how much should be assigned to the participant x condition slope). Note that it’s not about the number of datapoints but rather the number of groupings.</p>
 <p>In some cases, you will get a <code>singular fit</code> warning. We can also check for it explicitly:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">isSingular</span>(m.ris)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">isSingular</span>(m.ris)</a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<p>A singular model means that one of the random effects (or a combination of random effects) is zero. While mathematically such a model is well-defined, in practice this model often means that the model overfits: there is not enough power to distinguish</p>
+<p>A singular model means that one of the random effects (or a combination of random effects) is zero. While mathematically such a model is well-defined, in practice this model often means that the model overfits: there is not enough power to distinguish between the two models.</p>
 <p>All in all, if you suspect that your model is at risk of overfitting the data, you should consider simplifying your model.</p>
 <p>A general recommendation is to first remove random effects which account for least variance.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris)</a></code></pre></div>
 <pre><code>##  Groups     Name        Std.Dev. Corr  
 ##  SubjectID  (Intercept) 0.479932       
 ##             ConditionS  0.318837 -0.364
@@ -526,18 +541,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Residual               0.446580</code></pre>
 <p>(Admittedly, this step is a bit weird since the reason we’re simplifying the model is because we don’t trust these estimates to begin with. You can also try estimating these random effects individually in simpler models &amp; then comparing the magnitudes.)</p>
 <p>Our lowest random effect is the Condition x Experiment slope, so let’s try removing that:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">m.ris.red =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">m.ris.red =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
 ## control$checkConv, : Model failed to converge with max|grad| = 0.00201745
 ## (tol = 0.002, component 1)</code></pre>
 <p>Okay that didn’t do it… Let’s try one more - the variance estimate for the Condition x Region slope is also pretty low.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1">m.ris.red =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb100-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb100-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m.ris.red))    <span class="co"># fixed</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">m.ris.red =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">|</span><span class="st"> </span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Region), <span class="dt">data =</span> data.md.red, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m.ris.red))    <span class="co"># fixed</span></a></code></pre></div>
 <pre><code>##             Estimate Std. Error       df  t value     Pr(&gt;|t|)
 ## ConditionW 0.4552242 0.09588469 13.57936 4.747622 0.0003385931
 ## ConditionS 0.3464231 0.09585435 13.57702 3.614057 0.0029489722</code></pre>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris.red)          <span class="co"># random</span></a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">VarCorr</span>(m.ris.red)          <span class="co"># random</span></a></code></pre></div>
 <pre><code>##  Groups     Name        Std.Dev. Corr  
 ##  SubjectID  (Intercept) 0.47456        
 ##             ConditionS  0.32323  -0.343

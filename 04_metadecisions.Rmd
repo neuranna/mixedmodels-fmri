@@ -60,7 +60,7 @@ coef(summary(m.fixedreg))    # fixed
 VarCorr(m.fixedreg)          # random
 ```
 
-We get the estimate for each of the five regions; these estimates are evaluated at the baseline level of condition, which is words. The last fixed effect, `ConditionS`, here estimates the magnitude of the Sentences>Words contrast at the baseline level for region (which happens to be LAntTemp: we didn't specify it, so R just picked the first region alphabetically)s. So we have 5 regions' responses to words and one region's response to sentences>words. Not very useful.
+We get the estimate for each of the five regions; these estimates are evaluated at the condition intercept, which is words. The last fixed effect, `ConditionS`, here estimates the magnitude of the Sentences>Words contrast at the region intercept (which happens to be LAntTemp: we didn't specify it, so R just picked the first region alphabetically). So we have 5 regions' responses to words and one region's response to sentences>words. Not very useful.
 
 You can improve the interpretation of these effects by changing the contrasts (see section \@ref(contrasts)). You would also probably want to include the condition x region interaction term to estimate the sentences>words response in all regions. For now, let's just estimate the main effects with `ls_means`:
 

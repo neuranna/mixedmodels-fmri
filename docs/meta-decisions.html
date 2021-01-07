@@ -24,7 +24,7 @@
 <meta name="author" content="Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain" />
 
 
-<meta name="date" content="2020-12-04" />
+<meta name="date" content="2021-01-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a></li>
 <li class="chapter" data-level="2" data-path="meet-the-data.html"><a href="meet-the-data.html"><i class="fa fa-check"></i><b>2</b> Meet the data</a><ul>
 <li class="chapter" data-level="2.1" data-path="meet-the-data.html"><a href="meet-the-data.html#setting-up-the-environment"><i class="fa fa-check"></i><b>2.1</b> Setting up the environment</a></li>
-<li class="chapter" data-level="2.2" data-path="meet-the-data.html"><a href="meet-the-data.html#the-data"><i class="fa fa-check"></i><b>2.2</b> The data</a></li>
+<li class="chapter" data-level="2.2" data-path="meet-the-data.html"><a href="meet-the-data.html#getting-the-data"><i class="fa fa-check"></i><b>2.2</b> Getting the data</a></li>
+<li class="chapter" data-level="2.3" data-path="meet-the-data.html"><a href="meet-the-data.html#exploring-the-data"><i class="fa fa-check"></i><b>2.3</b> Exploring the data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html"><i class="fa fa-check"></i><b>3</b> Building your first mixed model</a><ul>
 <li class="chapter" data-level="3.1" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#building-from-the-ground-up"><i class="fa fa-check"></i><b>3.1</b> Building from the ground up</a></li>
@@ -144,7 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.3" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#random-intercept-3-region"><i class="fa fa-check"></i><b>3.4.3</b> Random intercept #3: region</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#randomslopes"><i class="fa fa-check"></i><b>3.5</b> It gets better - random slopes</a></li>
-<li class="chapter" data-level="3.6" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#fixed-effects-can-be-more-complicated-too"><i class="fa fa-check"></i><b>3.6</b> Fixed effects can be more complicated too</a></li>
+<li class="chapter" data-level="3.6" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#interactions-or-fixed-effects-can-be-complicated-too"><i class="fa fa-check"></i><b>3.6</b> Interactions, or Fixed effects can be complicated too</a></li>
 <li class="chapter" data-level="3.7" data-path="building-your-first-mixed-model.html"><a href="building-your-first-mixed-model.html#summary"><i class="fa fa-check"></i><b>3.7</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="the-devils-in-the-details.html"><a href="the-devils-in-the-details.html"><i class="fa fa-check"></i><b>4</b> The devil’s in the details</a><ul>
@@ -201,19 +202,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So far, we have made it seem obvious whether a variable should be entered as a fixed effect or a random effect. For Condition, we had 2 levels and wanted to examine each one - hence our decision to include it as a fixed effect. For Participant, we had many levels and only wanted to estimate general variance - thus it became a random variable. But what if the case is more borderline?</p>
 <p>For instance, what about brain regions? Do we care about each brain region individually or do we want to estimate general variability across regions? In our models so far, we estimated the effect of condition on activity in the <strong>MD network</strong>. Since we treated the network as its own entity, we were content with evaluating the overall effect of condition; region was entered as a random effect to “absorb” additional variance. Plus, we had 20 different regions, so we weren’t necessarily keen on having 19 region effects to report (we chose to estimate the effect of hemisphere instead).</p>
 <p>Let’s take a look at the other half of the dataset - the language network responses (left hemisphere only).</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1">data =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;data/Diachek2020.csv&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb104-2" data-line-number="2">data.lang =<span class="st"> </span><span class="kw">subset</span>(data, (System<span class="op">==</span><span class="st">&quot;language&quot;</span>))</a>
-<a class="sourceLine" id="cb104-3" data-line-number="3">data.lang =<span class="st"> </span><span class="kw">subset</span>(data.lang, (Hemisphere<span class="op">==</span><span class="st">&quot;L&quot;</span>))</a>
-<a class="sourceLine" id="cb104-4" data-line-number="4">data.lang<span class="op">$</span>Condition =<span class="st"> </span><span class="kw">factor</span>(data.lang<span class="op">$</span>Condition, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;W&#39;</span>, <span class="st">&#39;S&#39;</span>))</a>
-<a class="sourceLine" id="cb104-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb104-6" data-line-number="6"><span class="co"># plot</span></a>
-<a class="sourceLine" id="cb104-7" data-line-number="7"><span class="kw">ggplot</span>(data.lang)<span class="op">+</span></a>
-<a class="sourceLine" id="cb104-8" data-line-number="8"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Condition, <span class="dt">y=</span>Effect_Size), <span class="dt">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">geom=</span><span class="st">&quot;col&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb104-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Region, <span class="dt">ncol =</span> <span class="dv">5</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb104-10" data-line-number="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;By Region&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb104-11" data-line-number="11"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>,</a>
-<a class="sourceLine" id="cb104-12" data-line-number="12">        <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&quot;bold&quot;</span>))</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-210-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">data =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;data/Diachek2020.csv&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">data.lang =<span class="st"> </span><span class="kw">subset</span>(data, (System<span class="op">==</span><span class="st">&quot;language&quot;</span>))</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">data.lang =<span class="st"> </span><span class="kw">subset</span>(data.lang, (Hemisphere<span class="op">==</span><span class="st">&quot;L&quot;</span>))</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">data.lang<span class="op">$</span>Condition =<span class="st"> </span><span class="kw">factor</span>(data.lang<span class="op">$</span>Condition, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;W&#39;</span>, <span class="st">&#39;S&#39;</span>))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># plot</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">ggplot</span>(data.lang)<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">stat_summary</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Condition, <span class="dt">y=</span>Effect_Size), <span class="dt">fun.y=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">geom=</span><span class="st">&quot;col&quot;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Region, <span class="dt">ncol =</span> <span class="dv">5</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;By Region&quot;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>,</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">        <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&quot;bold&quot;</span>))</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Should we model each region as a fixed effect or a random effect?</p>
 <p>Five regions is pretty low for a random effect but we could probably pull it off. The real question is: do we want to treat each region as an independent entity, which will be estimated independently from the rest, or do we want to treat them as part of the overall brain region population, in which case the model will estimate a joint variance parameter for all of them?</p>
 <p>The answer is: it depends on your assumptions and goals as a researchers. Are you interested in reporting the overall effect across all these regions? Do you think that they come from the same population? Or do you think that your regions of interest in anterior and posterior temporal lobes behave independently from each other?</p>
@@ -221,9 +222,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="as-a-fixed-effect" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> As a fixed effect</h3>
 <p>Since we do not have an obvious region that would serve as the baseline, we will set the intercept to 0.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1">m.fixedreg =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Region <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
-<a class="sourceLine" id="cb105-2" data-line-number="2">          <span class="dt">data =</span> data.lang, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb105-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m.fixedreg))    <span class="co"># fixed</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">m.fixedreg =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Region <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">          <span class="dt">data =</span> data.lang, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">coef</span>(<span class="kw">summary</span>(m.fixedreg))    <span class="co"># fixed</span></a></code></pre></div>
 <pre><code>##                  Estimate Std. Error         df   t value     Pr(&gt;|t|)
 ## RegionLAntTemp  0.3110634 0.07208085   51.73055  4.315478 7.199986e-05
 ## RegionLIFG      0.7948357 0.07208085   51.73055 11.027002 3.422351e-15
@@ -231,14 +232,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## RegionLMFG      0.9460898 0.07208085   51.73055 13.125396 4.305164e-18
 ## RegionLPostTemp 0.6154249 0.07208085   51.73055  8.537981 1.891258e-11
 ## ConditionS      0.4349757 0.03566706 3611.53937 12.195445 1.488782e-33</code></pre>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="kw">VarCorr</span>(m.fixedreg)          <span class="co"># random</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">VarCorr</span>(m.fixedreg)          <span class="co"># random</span></a></code></pre></div>
 <pre><code>##  Groups     Name        Std.Dev.
 ##  SubjectID  (Intercept) 0.51782 
 ##  Experiment (Intercept) 0.32869 
 ##  Residual               0.62866</code></pre>
-<p>We get the estimate for each of the five regions; these estimates are evaluated at the baseline level of condition, which is words. The last fixed effect, <code>ConditionS</code>, here estimates the magnitude of the Sentences&gt;Words contrast at the baseline level for region (which happens to be LAntTemp: we didn’t specify it, so R just picked the first region alphabetically)s. So we have 5 regions’ responses to words and one region’s response to sentences&gt;words. Not very useful.</p>
+<p>We get the estimate for each of the five regions; these estimates are evaluated at the condition intercept, which is words. The last fixed effect, <code>ConditionS</code>, here estimates the magnitude of the Sentences&gt;Words contrast at the region intercept (which happens to be LAntTemp: we didn’t specify it, so R just picked the first region alphabetically). So we have 5 regions’ responses to words and one region’s response to sentences&gt;words. Not very useful.</p>
 <p>You can improve the interpretation of these effects by changing the contrasts (see section <a href="the-devils-in-the-details.html#contrasts">4.2</a>). You would also probably want to include the condition x region interaction term to estimate the sentences&gt;words response in all regions. For now, let’s just estimate the main effects with <code>ls_means</code>:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="kw">ls_means</span>(m.fixedreg)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ls_means</span>(m.fixedreg)</a></code></pre></div>
 <pre><code>## Least Squares Means table:
 ## 
 ##                 Estimate Std. Error   df t value    lower    upper
@@ -270,14 +271,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.1.2</span> As a random effect</h3>
 <p>Ok, but what if we mostly care about the network-level responses? Then we can treat ROI as a random effect. If we decide to evaluate the responses in individual ROIs, we can always run follow-up tests.</p>
 <p>(see how I switched the optimizer here to make the model converge?)</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">m.randomreg =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
-<a class="sourceLine" id="cb111-2" data-line-number="2">          <span class="dt">data =</span> data.lang, <span class="dt">REML=</span><span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb111-3" data-line-number="3">          <span class="dt">control =</span> <span class="kw">lmerControl</span>(<span class="dt">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>, <span class="dt">optCtrl=</span><span class="kw">list</span>(<span class="dt">maxfun=</span><span class="fl">2e5</span>)))</a>
-<a class="sourceLine" id="cb111-4" data-line-number="4"><span class="kw">coef</span>(<span class="kw">summary</span>(m.randomreg))    <span class="co"># fixed</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">m.randomreg =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Region), </a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">          <span class="dt">data =</span> data.lang, <span class="dt">REML=</span><span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">          <span class="dt">control =</span> <span class="kw">lmerControl</span>(<span class="dt">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>, <span class="dt">optCtrl=</span><span class="kw">list</span>(<span class="dt">maxfun=</span><span class="fl">2e5</span>)))</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">coef</span>(<span class="kw">summary</span>(m.randomreg))    <span class="co"># fixed</span></a></code></pre></div>
 <pre><code>##              Estimate Std. Error         df  t value     Pr(&gt;|t|)
 ## (Intercept) 0.6452897 0.12174795   10.61769  5.30021 2.841796e-04
 ## ConditionS  0.4349022 0.03570038 3624.26797 12.18200 1.735365e-33</code></pre>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">VarCorr</span>(m.randomreg)          <span class="co"># random</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">VarCorr</span>(m.randomreg)          <span class="co"># random</span></a></code></pre></div>
 <pre><code>##  Groups     Name        Std.Dev.
 ##  SubjectID  (Intercept) 0.51781 
 ##  Experiment (Intercept) 0.33253 
@@ -285,10 +286,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Residual               0.62893</code></pre>
 <p>This should look familiar - we’ve run versions of this model a lot using the MD data. The intercept is the effect of word reading across all regions, <code>ConditionS</code> is the sentence&gt;words response across all regions, and <code>Regions (Intercept)</code> is the standard deviation of each region’s mean response from the grand mean.</p>
 <p>This model is designed for making statements like “the language network responds to X”. If we want to see whether there is significant variation in the mean response across ROIs, we can run the likelihood ratio test:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1">m.randomreg.null =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
-<a class="sourceLine" id="cb115-2" data-line-number="2">          <span class="dt">data =</span> data.lang, <span class="dt">REML=</span><span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb115-3" data-line-number="3">          <span class="dt">control =</span> <span class="kw">lmerControl</span>(<span class="dt">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>, <span class="dt">optCtrl=</span><span class="kw">list</span>(<span class="dt">maxfun=</span><span class="fl">2e5</span>)))</a>
-<a class="sourceLine" id="cb115-4" data-line-number="4"><span class="kw">anova</span>(m.randomreg, m.randomreg.null)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">m.randomreg.null =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">          <span class="dt">data =</span> data.lang, <span class="dt">REML=</span><span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">          <span class="dt">control =</span> <span class="kw">lmerControl</span>(<span class="dt">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>, <span class="dt">optCtrl=</span><span class="kw">list</span>(<span class="dt">maxfun=</span><span class="fl">2e5</span>)))</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw">anova</span>(m.randomreg, m.randomreg.null)</a></code></pre></div>
 <pre><code>## Data: data.lang
 ## Models:
 ## m.randomreg.null: Effect_Size ~ 1 + Condition + (1 | SubjectID) + (1 | Experiment)
@@ -305,14 +306,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Reporting:
 &gt; The random intercept by ROI explained a significant amount of variance (<span class="math inline">\(\sigma\)</span>=0.22, likelihood ratio test <span class="math inline">\(X^2\)</span>=558.5, p&lt;.001).</p>
 <p>To estimate the sentences&gt;words effect in individual regions, you can run a follow-up test on the data from a single region:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1">data.lang.IFG =<span class="st"> </span><span class="kw">subset</span>(data.lang, (Region<span class="op">==</span><span class="st">&quot;LIFG&quot;</span>))</a>
-<a class="sourceLine" id="cb117-2" data-line-number="2">m.randomreg.IFG =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
-<a class="sourceLine" id="cb117-3" data-line-number="3">          <span class="dt">data =</span> data.lang.IFG, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb117-4" data-line-number="4"><span class="kw">coef</span>(<span class="kw">summary</span>(m.randomreg))    <span class="co"># fixed</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">data.lang.IFG =<span class="st"> </span><span class="kw">subset</span>(data.lang, (Region<span class="op">==</span><span class="st">&quot;LIFG&quot;</span>))</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">m.randomreg.IFG =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">          <span class="dt">data =</span> data.lang.IFG, <span class="dt">REML=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="kw">coef</span>(<span class="kw">summary</span>(m.randomreg))    <span class="co"># fixed</span></a></code></pre></div>
 <pre><code>##              Estimate Std. Error         df  t value     Pr(&gt;|t|)
 ## (Intercept) 0.6452897 0.12174795   10.61769  5.30021 2.841796e-04
 ## ConditionS  0.4349022 0.03570038 3624.26797 12.18200 1.735365e-33</code></pre>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="kw">VarCorr</span>(m.randomreg)          <span class="co"># random</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">VarCorr</span>(m.randomreg)          <span class="co"># random</span></a></code></pre></div>
 <pre><code>##  Groups     Name        Std.Dev.
 ##  SubjectID  (Intercept) 0.51781 
 ##  Experiment (Intercept) 0.33253 
@@ -346,12 +347,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-
-
-
-
-
-
             </section>
 
           </div>

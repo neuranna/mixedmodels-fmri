@@ -27,17 +27,20 @@ library(lme4)
 library(lmerTest)
 ```
 
-## The data
+## Getting the data
 
 We will use data from the [paper](https://evlab.mit.edu/assets/papers/Diachek_Blank_Siegelman_et_al_2020_JNeurosci.pdf) by Diachek et al (2020): "The domain-general multiple demand (MD) network does not support core aspects of language comprehension: a large-scale fMRI investigation".
 
 In this work, the authors examined responses within 2 networks of interest - multiple demand and language - to **sentence reading** & **word reading** conditions across many different experiments. Each network contains multiple regions of interest (ROIs), 20 for MD and 6 for language; the MD regions are located in both hemispheres, whereas the language ROIs are only located in the left hemisphere. 
 
-The data can be downloaded from [OSF](https://osf.io/pdtk9/wiki/home/); a csv version we use in this tutorial is available in the tutorial's [Github repo](https://github.com/neuranna/mixedmodels-fmri/tree/main/data).
+The csv file we will use in this tutorial can be downloaded from [OSF](https://osf.io/uqsv4/files/). 
+
+You can also clone the tutorial's [Github repo](https://github.com/neuranna/mixedmodels-fmri/tree/main/data). This way you will not only be able to see the data but will also get access to R Markdown (Rmd) files that have the text & code you see on these pages. You can load Rmd files and run them using  [RStudio](https://rstudio.com/products/rstudio/download/).
+
+## Exploring the data
 
 Let's load and examine the data. In this tutorial, we will only be looking at the MD system.
 ```{r}
-# load data
 data = read.csv('data/Diachek2020.csv', header=TRUE)
 data = subset(data, (System=="MD"))
 print(str(data))
@@ -75,7 +78,7 @@ ggplot(data)+
         plot.title=element_text(face="bold"))
 ```
 
-We see that the responses vary quite a lot by brain region and experiment. Moreover, some experiments only include a sentence (S) or word (W) condition but not both. For simplicity, let's only include a subset of experiments (19-24)
+We see that the responses vary quite a lot by brain region and experiment. Moreover, some experiments only include a sentence (S) or word (W) condition but not both. For simplicity, let's only include a subset of experiments (19-24).
 
 ```{r}
 for (ii in 19:24) {

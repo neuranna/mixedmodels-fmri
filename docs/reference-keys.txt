@@ -40,3 +40,6 @@ beyond-brain-region
 model-complexity
 single-subject-mixed-analyses
 conclusion
+getting-the-data
+exploring-the-data
+interactions-or-fixed-effects-can-be-complicated-too

@@ -50,7 +50,13 @@ How do I know which terms in my model are significantly different from 0? We've 
  
 Remember a term we had before, `ConditionS`? It is the estimate of the average `Effect_Size` for the Sentences > Words contrast. How do we know whether this effect is significant?
  
-`lmerTest` allows us to just get a p value associated with each (thanks to this package, we get an extra column in your output for every fixed effect we estimate)
+`lmerTest` allows us to just get a p value associated with each fixed effect. Because we have this package loaded, now every time we run ```lmer```, we get an extra column in the "Fixed effects" section called ```Pr(>|t|)```. This column contains p-values (here, probabilities that a given effect is 0).
+
+Let's fit a model with a fixed effect of Condition and three random intercepts: participant, experiment, brain region. Here is how we can describe this analysis in a paper:
+
+> To analyze MD network responses, we fitted a mixed-effect linear model with Condition as a fixed effect and Participant, Experiment and Brain Region as random intercepts. 
+
+Here we go:
 
 ```{r}
 m1 = lmer(Effect_Size ~ 1 + Condition + (1 |SubjectID) + (1 |Experiment) + (1 |Region), 
@@ -58,11 +64,11 @@ m1 = lmer(Effect_Size ~ 1 + Condition + (1 |SubjectID) + (1 |Experiment) + (1 |R
 summary(m1)
 ```
 
-Look at Fixed effects -> ConditionS -> value in the Pr(>|t|) column is the p value of the "S" contrast, which in our case is Sentence>Word.
+Look at Fixed effects -> ConditionS -> value in the Pr(>|t|) column. This is the p value of the "S" contrast, which in our case is Sentence>Word.
 
 Here's how you can report this effect:
 
-> The responses in the multiple demand (MD) network during sentence reading were lower than responses during word reading (beta=-0.11, SE=0.01, p<.001).
+> The MD network responses during sentence reading were lower than responses during word reading (beta=-0.11, SE=0.01, p<.001).
 
 Note that lmerTest only estimates p values for fixed effects, so if you want to estimate the significance of a random effect, you have to use Method 2.
 
@@ -87,7 +93,7 @@ This tells you that Region matters but it doesn't tell you anything about which 
 
 Here's how you can describe this result:
 
-> The overall response magnitude varied substantially by region ($\sigma$=0.28). The likelihood ratio test showed that adding the region intercept term significantly improved model fit ($X^2$=784.9, p<.001).
+> The overall response magnitude varied substantially by region ($\sigma$=0.28). The likelihood ratio test showed that adding the region intercept term significantly improved model fit ($X^2$(1)=784.9, p<.001).
 
 ### Method 3: pairwise tests
 
@@ -135,7 +141,13 @@ Well let's see how R is treating these levels. Ultimately, in order to fit the m
 contrasts(data.md.red$Condition)
 ```
 
-This is called **dummy coding** - but there's nothing dumb about it! It's just the default in R. Another term for it is "treatment coding"
+This is called **dummy coding** - but there's nothing dumb about it! It's just the default in R. Another term for it is "treatment coding".
+
+In the paper, you could write:
+
+> In our model, Condition was a categorical fixed effect, with Words serving as the reference level.
+
+You can even explicitly say that you used dummy coding with Words as the reference level. 
 
 But what if we don't want to treat the word reading condition in this privileged way? Turns out, you can set the contrasts manually:
 
@@ -150,7 +162,11 @@ Ok, looks confusing. What did we just do?
 
 The difference between S and W remains 1. What has changed is where we place 0 (aka, the intercept). In dummy coding, 0 was aligned with the W condition. Now, it is *in between* W and S. Thus, our intercept will now reflect the average response across both W and S conditions.
 
-This way of setting up contrasts is called **sum coding** (or deviation coding).
+This way of setting up contrasts is called **sum coding** (or deviation coding). You can report it as follows:
+
+> In our model, Condition was a categorical fixed effect (with a sum contrast coding scheme).
+
+How does this influence the results?
 
 ```{r}
 m1.sum = lmer(Effect_Size ~ 1 + Condition + (1 |SubjectID) + (1 |Experiment) + (1 |Region), 
@@ -190,15 +206,15 @@ coef(summary(m2))    # fixed
 
 The interaction between condition and hemisphere is indeed significant (beta=-0.08, SE=0.03, p=.001), but the effect of condition is not (beta=-0.07, SE=0.04, p=.064), and neither is the effect of hemisphere (beta=-0.08, SE=0.10, p=.424). Why is that? 
 
-Our intuition doesn't align with the model output because the hemisphere and condition effects here do not actually reflect the main effect of each factor. The reason why is because each fixed effect is evaluated with respect to the *intercept* of the other one. 
+Our intuition doesn't align with the model output because the hemisphere and condition effects here do not actually reflect the main effect of each factor. The reason why is because each fixed effect is evaluated with respect to the *reference level* of the other one. 
  
-Remember, this is the dataset where we're using the default dummy coding, so the intercept for condition is words and the intercept for hemisphere is left. As a result, 
+Remember, this is the dataset where we're using the default dummy coding, so the reference level for condition is words and the reference level for hemisphere is left. As a result, 
 
-- under ConditionW we have the __simple effect__ of Condition: Words>Sentences but only for the left hemisphere. And it's indeed pretty small. 
+- under ConditionS we have the __simple effect__ of Condition: Sentences>Words but only for the left hemisphere. And it's indeed pretty small. 
 
 - under HemisphereR we have the __simple effect__ of Hemisphere: Right>Left but only for words. Looking at the plot, we can verify that the hemisphere difference for words is indeed ~0.08 (as predicted by our beta value).
 
-In order to estimate the __main effects__, we want to use sum coding. Then, the intercept will reflect the average response for each factor across levels.  
+In order to estimate the __main effects__, we want to use sum coding. Then, the reference level will be the average response across levels (as opposed to dummy coding, where only one level serves as the reference).  
 
 We've already done this for condition:
 
@@ -290,7 +306,7 @@ In some cases, you will get a `singular fit` warning. We can also check for it e
 isSingular(m.ris)
 ```
 
-A singular model means that one of the random effects (or a combination of random effects) is zero. While mathematically such a model is well-defined, in practice this model often means that the model overfits: there is not enough power to distinguish 
+A singular model means that one of the random effects (or a combination of random effects) is zero. While mathematically such a model is well-defined, in practice this model often means that the model overfits: there is not enough power to distinguish between the two models.
 
 All in all, if you suspect that your model is at risk of overfitting the data, you should consider simplifying your model.
 
