@@ -24,7 +24,7 @@
 <meta name="author" content="Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain" />
 
 
-<meta name="date" content="2021-01-06" />
+<meta name="date" content="2021-01-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,8 +303,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## m.randomreg      ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>Reporting:
-&gt; The random intercept by ROI explained a significant amount of variance (<span class="math inline">\(\sigma\)</span>=0.22, likelihood ratio test <span class="math inline">\(X^2\)</span>=558.5, p&lt;.001).</p>
+<p>Reporting:</p>
+<blockquote>
+<p>The random intercept by ROI explained a significant amount of variance (<span class="math inline">\(\sigma\)</span>=0.22, likelihood ratio test <span class="math inline">\(X^2\)</span>=558.5, p&lt;.001).</p>
+</blockquote>
 <p>To estimate the sentences&gt;words effect in individual regions, you can run a follow-up test on the data from a single region:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">data.lang.IFG =<span class="st"> </span><span class="kw">subset</span>(data.lang, (Region<span class="op">==</span><span class="st">&quot;LIFG&quot;</span>))</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">m.randomreg.IFG =<span class="st"> </span><span class="kw">lmer</span>(Effect_Size <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Condition <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>SubjectID) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span>Experiment), </a>

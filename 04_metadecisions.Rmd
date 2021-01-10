@@ -100,6 +100,7 @@ anova(m.randomreg, m.randomreg.null)
 ```
 
 Reporting:
+
 > The random intercept by ROI explained a significant amount of variance ($\sigma$=0.22, likelihood ratio test $X^2$=558.5, p<.001). 
 
 To estimate the sentences>words effect in individual regions, you can run a follow-up test on the data from a single region:
