@@ -1,6 +1,6 @@
 ---
 title: "Mixed Effect Models for fMRI"
-author: "Compiled by Anna Ivanova based on materials by Idan Blank, Rachel Ryskin, and Cory Shain"
+author: "Anna Ivanova, Idan Blank, Rachel Ryskin, Cory Shain, and Evelina Fedorenko"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:
